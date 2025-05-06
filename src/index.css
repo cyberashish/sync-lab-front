@@ -1,0 +1,60 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "./styles/brand/theme.css";
+@import "./styles/layout/dashboard.css";
+
+/* @custom-variant dark (&:where(.dark, .dark *)); */ 
+@custom-variant dark (&:where(.dark , .dark *));
+
+@layer base{
+    body{
+        @apply overflow-x-hidden;
+    }
+}
+
+@layer utilities {
+    .container{
+    @apply max-w-7xl mx-auto p-6;
+   }
+   .apexcharts-canvas path{
+    @apply stroke-chartstroke;
+  }
+  .react-datepicker-wrapper{
+    @apply inline-block
+  }
+  .react-datepicker__input-container{
+    @apply w-full
+  }
+  .react-datepicker{
+    @apply !border-none !font-sans !text-dark !p-2 !shadow-md; 
+  }
+  .react-datepicker__month{
+    @apply !bg-white dark:!bg-black !m-0
+  }
+  .react-datepicker__day-names{
+    @apply !text-dark;
+  }
+  .react-datepicker__day-name{
+    @apply !text-dark;
+  }
+  .react-datepicker__day{
+    @apply !text-dark hover:!bg-primary hover:!text-white;
+  }
+  .react-datepicker__month-select , .react-datepicker__year-select{
+    @apply !bg-white dark:!bg-black !my-3 !text-sm;
+  }
+  .react-datepicker__day--keyboard-selected, .react-datepicker__day--selected{
+    @apply !bg-primary !text-white;
+  }
+  .react-datepicker__header {
+    @apply !bg-white dark:!bg-chartstroke !border-border;
+  }
+  .react-datepicker__month-select:focus-visible{
+    @apply ring-0 outline-0 shadow-none
+  }
+}
+
+/* Global Styles */
+
+  
+  
