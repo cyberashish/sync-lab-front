@@ -1,11 +1,11 @@
 import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
-import { setThemeMode } from "@/store/slices/themeModeSlice";
+import { setThemeMode } from "@/store/slices/userModeSlice";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useEffect } from "react";
 
 export default function ThemeMode() {
   const dispatch = useAppDispatch();
-  const theme = useAppSelector((state) => state.themeMode.theme);
+  const theme = useAppSelector((state) => state.userMode.theme);
   const handleTheme = () => {
      if(theme === "light"){
       dispatch(setThemeMode("dark"));

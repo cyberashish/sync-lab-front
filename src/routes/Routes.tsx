@@ -2,6 +2,7 @@ import { lazy } from "react";
 import { createBrowserRouter, Navigate } from "react-router";
 import Loadable from "../utils/Loadable";
 import BlankLayout from "../components/layouts/blank-layout/BlankLayout";
+import AuthGuard from "@/components/auth/auth-guard/AuthGuard";
 
 // Layouts
 const FullLayout = Loadable(lazy(() => import("../components/layouts/full-layout/FullLayout")))
@@ -23,7 +24,7 @@ const Signup = Loadable(lazy(() => import("../views/auth/signup/AuthSignup")));
 export const router = createBrowserRouter([
     {
       path:"/",
-      element: <FullLayout/>,
+      element: <AuthGuard><FullLayout/></AuthGuard>,
       
       children: [
         {

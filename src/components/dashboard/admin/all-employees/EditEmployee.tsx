@@ -9,7 +9,7 @@ export default function EditEmployee(){
     const dispatch = useAppDispatch();
     return (
         <Dialog open={isDialogOpen} onOpenChange={(value) => dispatch(setEditEmployeeDialog(value))} >
-        <DialogContent className="sm:max-w-3xl h-[calc(100vh_-_100px)] overflow-auto p-0 gap-0">
+        <DialogContent className="sm:max-w-6xl h-[calc(100vh_-_100px)] overflow-auto p-0 gap-0">
           <DialogHeader>
             <DialogTitle className="hidden" >Edit profile</DialogTitle>
           </DialogHeader>

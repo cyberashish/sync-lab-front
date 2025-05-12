@@ -1,7 +1,7 @@
 import { Card } from "@/components/ui/card";
 import user from "@/assets/images/users/employee_2.jpg";
 export default function Profile(){
-    return (
+    return ( 
         <Card className="max-w-md mx-auto" >
           <div className="flex items-center flex-col gap-3.5">
              <div className="w-36 h-36 rounded-full outline-3 outline-primary outline-offset-3">

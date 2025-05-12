@@ -12,7 +12,7 @@ interface DataTableProps<TData , TValue> {
     data: TData[],
 }
 
-export function DataTable<TData , TValue>({
+export default function DataTable<TData , TValue>({
     columns,
     data
 }:DataTableProps<TData , TValue>){
@@ -45,9 +45,9 @@ export function DataTable<TData , TValue>({
 
     useEffect(() => {
          if(activeStatus === "active"){
-            table.getColumn("status")?.setFilterValue("active");
+            table.getColumn("active")?.setFilterValue(true);
          }else if(activeStatus === 'inactive') {
-            table.getColumn("status")?.setFilterValue("inactive");
+            table.getColumn("active")?.setFilterValue(false);
          }
         else{
             table.setColumnFilters([]);
@@ -116,7 +116,7 @@ export function DataTable<TData , TValue>({
         </div>
       </div>
         <div className="rounded-md border border-border overflow-hidden">
-            <Table>
+            <Table className="min-h-30" >
                 <TableHeader>
                     {
                         table.getHeaderGroups().map((headerGroup) => (

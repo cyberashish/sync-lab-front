@@ -4,9 +4,17 @@ import { Label } from "@/components/ui/label";
 import {useFormik} from "formik";
 import { Icon } from "@iconify/react";
 import { signupSchema } from "@/utils/schema";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useRegisterUserMutation } from "@/store/api/userApi";
+import { useAppDispatch } from "@/hooks/hooks";
+import { setAuth, setAuthenticatedUser } from "@/store/slices/userModeSlice";
+import { Loader2 } from "lucide-react";
 
 export default function AuthSignupForm(){
+
+    const [register,{isLoading,error}] = useRegisterUserMutation();
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     const initialValues = {
         fullname : "",
@@ -15,16 +23,21 @@ export default function AuthSignupForm(){
         confirmPassword: ""
     }
 
-    const {values , errors , handleBlur , touched, handleChange , handleSubmit} = useFormik({
+    const {values , errors , handleBlur , touched, handleChange , handleSubmit , resetForm} = useFormik({
         initialValues,
         validationSchema:signupSchema,
-        onSubmit: (values) => {
-           console.log(values);
+        onSubmit: async (values) => {
+           const result = await register({fullname:values.fullname , email:values.email , password:values.password});
+           const user = result.data.data;
+           if(!result?.error){
+            dispatch(setAuth(true));
+            dispatch(setAuthenticatedUser({name: user.fullname , email:user.email , img:user.image}));
+            navigate("/");
+           }
+           resetForm();
+
         }
     });
-
-    console.log(errors);
-    console.log(touched.fullname)
 
     return (
       <>
@@ -61,8 +74,14 @@ export default function AuthSignupForm(){
           <p className={`text-sm mt-0.5 text-red-500 font-normal ${errors.confirmPassword && touched.confirmPassword ? 'text-sm text-red-500 font-medium mt-1' :'hidden'}`}>{errors.confirmPassword}</p>
           </div>
         </div>
+        <div className={`w-fit py-1 px-3 mx-auto rounded-full bg-red-100 ${error ? 'block' :'hidden'}`}>
+            {error && 'data' in error && <p className="text-sm text-red-500 font-medium" >{(error.data as { message?: string }).message || 'Login failed'}</p>}
+        </div>
         <div className="w-full">
-            <Button type="submit" className="w-full mt-3" >Sign Up</Button>
+            <Button disabled={isLoading} type="submit" className="w-full mt-3" >
+            {isLoading ?  <Loader2 className="animate-spin" /> : null}
+            Sign Up
+            </Button>
         </div>
          <div className="relative my-3 mb-2">
          <hr className="border-border" />

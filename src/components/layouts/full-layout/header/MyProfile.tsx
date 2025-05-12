@@ -1,17 +1,43 @@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import user from "@/assets/images/users/employee_2.jpg";
+// import user from "@/assets/images/users/employee_2.jpg";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { Link } from "react-router";
 import { Button } from "@/components/ui/button";
+import { useGetUserByTokenQuery, useLazyLogoutUserQuery } from "@/store/api/userApi";
+import { useEffect, useState } from "react";
 
 export default function MyProfile() {
+  const [trigger] = useLazyLogoutUserQuery();
+  const [authenticatedUser , setAuthenticatedUser] = useState<any>();
+  const {data} = useGetUserByTokenQuery(undefined);
+
+  async function handleLogout(){
+    await trigger(undefined); // Optional: can await for data
+    window.location.href="https://synclabems.netlify.app/"
+  }
+  useEffect(() => {
+    if(data.data){
+      setAuthenticatedUser(data.data)
+    }
+  },[data])
   return (
     <>
-      <DropdownMenu>
+      <DropdownMenu  >
         <DropdownMenuTrigger asChild className="focus-visible:border-0 focus-visible:outline-0 focus:ring-0" >
-        <button className="cursor-pointer" ><img src={user} alt="user" width={36} height={36} className="rounded-full" /></button>
+        <button className="cursor-pointer" >
+          {
+            authenticatedUser?.img ? <img src={authenticatedUser.img} alt="user" width={36} height={36} className="rounded-full" /> :
+            <div className="w-9 h-9 rounded-full bg-primary/10 text-primary flex justify-center items-center">
+             <span className="shrink-0">
+             {
+              authenticatedUser?.fullname.split("")[0]?.toLocaleUpperCase()
+             }
+             </span>
+            </div>
+          }
+          </button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="bg-white border-border min-w-[200px]" >
+        <DropdownMenuContent className="bg-white border-border min-w-[200px] px-4" >
           <DropdownMenuLabel className="text-base" >My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem className="flex items-center gap-2 hover:text-white cursor-pointer focus-visible:border-0 focus-visible:outline-0" asChild  >
@@ -26,11 +52,11 @@ export default function MyProfile() {
             <p className="text-[15px] font-medium">Status</p>
             </Link>
           </DropdownMenuItem>
-          <Button asChild className="w-full my-3" >
-           <Link to="/auth/login" >
+          <div className=" mt-2">
+          <Button onClick={handleLogout} className="w-full my-3 !h-[38px]" >
            Log Out!
-           </Link>
           </Button>
+          </div>
         </DropdownMenuContent>
       </DropdownMenu>
     </>

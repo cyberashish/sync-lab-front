@@ -23,14 +23,16 @@ import { cn } from "@/lib/utils";
 import { EmployeeRegistrationSchema } from "@/utils/schema/employeeSchema";
 import { format } from "date-fns";
 import { useFormik } from "formik";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import employeeBg from "@/assets/images/background/employee_registration.png"
 import { DialogTitle } from "@radix-ui/react-dialog";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
-import { setEditEmployeeDialog, setTransformedEmployees } from "@/store/slices/employeeTableSlice";
+import { setEditEmployeeDialog } from "@/store/slices/employeeTableSlice";
+import { useAddEmployeeMutation, useEditEmployeeMutation } from "@/store/api/employeeApi";
+import { Checkbox } from "@/components/ui/checkbox";
 
 
 
@@ -39,8 +41,11 @@ export default function EmployeeRegistration() {
   const [isDialogOpen , setIsDialogOpen] = useState(false);
   const selectedEmployee = useAppSelector((state) => state.employee);
   const isEdit = useAppSelector((state) => state.employeeTable.isEditDialogOpen);
-  const allEmployees = useAppSelector((state) => state.employeeTable.employees);
+  // const allEmployees = useAppSelector((state) => state.employeeTable.employees);
   const dispatch = useAppDispatch();
+
+  const [trigger,{isLoading}] = useAddEmployeeMutation();
+  const [editEmployee , {isLoading:isEditEmployeeLoading}] = useEditEmployeeMutation();
 
   const initialValues = isEdit ? selectedEmployee : {
     name:"",
@@ -57,30 +62,40 @@ export default function EmployeeRegistration() {
     current_address:"",
     permanent_address:"",
     employeeDOBDate:"",
-    employeeJoiningDate:""
+    employeeJoiningDate:"",
+    active:true
   }
  
-  const {values , handleChange , handleSubmit , setFieldValue , errors , touched , handleBlur , setFieldTouched} = useFormik({
+  const {values , handleChange , handleSubmit , setFieldValue , errors , touched , handleBlur , setFieldTouched , resetForm} = useFormik({
     initialValues ,
     validationSchema: EmployeeRegistrationSchema,
-    onSubmit: (values) => {
-
-      
+    onSubmit: async (values) => {
       if(isEdit){
-        console.log(isEdit);
-        const transformData = allEmployees.map((employee) => {
-           if(employee.email === values.email){
-            return {...employee , ...values}
-           }else{
-            return employee
-           }
-        })
-        dispatch(setTransformedEmployees(transformData));
-        console.log("Employee edited successfully" , transformData);
-        setIsDialogOpen(true);
+        console.log(values,"Testing data");
+       const updatedEmployee = await editEmployee(values);
+        console.log(updatedEmployee,"update task");
+        if(updatedEmployee.error){
+            alert("Failed to edit employee!");
+        }else{
+          setIsDialogOpen(true);
+        }
+
       }else{
-        setIsDialogOpen(true);
+        try{
+          const result = await trigger({...values});
+          if(result.error){
+            alert("Employee Registration got failed");
+            console.log(result.error);
+          }else{
+            setIsDialogOpen(true);
+            console.log(result,"Rakkt Bahega");
+          }
+        }catch(error){
+          alert("Employee Registration got failed")
+          console.log(error,"Registration failed")
+        }
       }
+      resetForm();
     }
   });
 
@@ -156,7 +171,7 @@ const [startDate, setStartDate] = useState<null | Date>(null);
               {errors.email && touched.email ? <p className="text-sm text-red-500 font-medium" >{errors.email}</p> : null}
             </div>
              {/* Gender */}
-            <div className="flex flex-col gap-1.5 lg:col-span-4 col-span-12">
+            <div className="flex flex-col gap-1.5 lg:col-span-2 col-span-12">
               <Label htmlFor="male" className="text-dark font-medium text-sm">
                 Gender
               </Label>
@@ -171,6 +186,18 @@ const [startDate, setStartDate] = useState<null | Date>(null);
                     <Label htmlFor="female">Female</Label>
                   </div>
                 </RadioGroup>
+              </div>
+            </div>
+             {/* Is Employee Active */}
+            <div className="flex flex-col gap-1.5 lg:col-span-2 col-span-12">
+              <Label htmlFor="isEmployeeActive" className="text-dark font-medium text-sm">
+                IsEmployee Active
+              </Label>
+              <div>
+              <Checkbox
+                  checked={values.active}
+                  onCheckedChange={(value:boolean) => setFieldValue("active" , value) }
+                />
               </div>
             </div>
             {/* Date of Birth */}
@@ -515,7 +542,11 @@ const [startDate, setStartDate] = useState<null | Date>(null);
             </div>
             <div className="col-span-12">
               <div className="w-full flex justify-center ">
-              <Button className="lg:w-2/12 w-full" type="submit" >Submit</Button>
+              <Button disabled={isLoading || isEditEmployeeLoading} className="lg:w-2/12 w-full" type="submit" >
+              {isLoading || isEditEmployeeLoading ?  <Loader2 className="animate-spin" /> : null}
+                      Submit
+              </Button>
+              
               </div>
             </div>
           </form>

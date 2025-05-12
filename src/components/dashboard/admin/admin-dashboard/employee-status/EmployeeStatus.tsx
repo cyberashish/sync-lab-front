@@ -1,15 +1,19 @@
 import { Card } from "@/components/ui/card";
-import { DataTable } from "./DataTable";
-import { employees } from "./employeeData";
 import { columns } from "./columns";
-
-
+import DataTable from "./DataTable";
+import TableSkeleton from "@/components/shared/skeleton/TableSkeleton";
+import { useAllEmployeesQuery } from "@/store/api/employeeApi";
 
 export default function EmployeeStatus() {
+
+  const {data , isLoading} = useAllEmployeesQuery(undefined);
+
+  if(isLoading){
+    return <TableSkeleton/>
+  }
   return (
     <Card>
-      {/* <TestTable/> */}
-      <DataTable data={employees} columns={columns} />
+      <DataTable data={data.data.slice(0,5)} columns={columns} />
     </Card>
   );
 }

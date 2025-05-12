@@ -174,7 +174,7 @@ export const Employee_Columns:ColumnDef<Employee>[] = [
       </button>
     },
     cell: ({row}) => {
-      return <>{new Date(row.getValue("employeeDOBDate")).toLocaleDateString()}</>
+      return <>{ (new Date(row.getValue("employeeDOBDate")).toLocaleDateString())}</>
     },
     sortingFn: (rowA , rowB) => {
       const dateA = new Date(rowA.original.employeeDOBDate);
@@ -192,7 +192,7 @@ export const Employee_Columns:ColumnDef<Employee>[] = [
       </button>
     },
     cell: ({row}) => (
-      <>{new Date(row.getValue('employeeJoiningDate')).toLocaleDateString()}</>
+      <>{(new Date(row.getValue('employeeJoiningDate')).toLocaleDateString())}</>
     ),
     sortingFn: (rowA,rowB) => {
      const DateA = new Date(rowA.original.employeeJoiningDate);

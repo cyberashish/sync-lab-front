@@ -5,10 +5,11 @@ import { EmployeeRequestColumn } from "./employeeRequestColumn";
 import ResolveRequestDialog from "./Dialog/ResolveRequestDialog";
 import { useEffect, useMemo, useReducer, useState } from "react";
 import { EmployeeRequestType } from "./employeeRequestData";
-import { useAppSelector } from "@/hooks/hooks";
-import DisapproveRequestDialog from "./Dialog/DisapproveRequestDialog";
+import DisapproveRequestDialog from "./Dialog/ResolveRequestDialog1";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { Input } from "@/components/ui/input";
+import { useGetAllEmployeesRequestQuery } from "@/store/api/employeeApi";
+import TableSkeleton from "@/components/shared/skeleton/TableSkeleton";
 
 
 interface initialStateType {
@@ -40,7 +41,8 @@ export default function RequestApproval(){
  
     const [state , dispatch] = useReducer(reducer, initialState)
     const [EmployeeRequestData , setEmployeeRequestData] = useState<EmployeeRequestType[]>([]);
-    const requestsStatus = useAppSelector((state) => state.requestStatus.requestStatusTableData);
+
+    const {data , isLoading} = useGetAllEmployeesRequestQuery(undefined);
 
     const handleSearchFocus = () => {
        dispatch({type:inputFocussed , payload:true})
@@ -54,8 +56,10 @@ export default function RequestApproval(){
     },[EmployeeRequestData])
 
     useEffect(() => {
-        setEmployeeRequestData(requestsStatus);
-    },[requestsStatus])
+        if(data){
+            setEmployeeRequestData(data.data);
+        }
+    },[data])
 
     const table = useReactTable({
         data: RequestsData,
@@ -101,7 +105,7 @@ export default function RequestApproval(){
             </div>
             <div className="p-6 pt-0">
             <div className="rounded-md border border-border overflow-hidden" >
-            <Table className="font-medium" >
+            {isLoading ? <TableSkeleton/> : <Table className="font-medium" >
                 <TableHeader>
                     {
                       table.getHeaderGroups().map((headerGroup) => (
@@ -136,7 +140,7 @@ export default function RequestApproval(){
                         )) : null
                     }
                 </TableBody>
-            </Table>
+            </Table>}
             </div>
             </div>
         </Card>

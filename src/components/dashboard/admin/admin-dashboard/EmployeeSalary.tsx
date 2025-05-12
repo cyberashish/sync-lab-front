@@ -5,7 +5,7 @@ import { useAppSelector } from "@/hooks/hooks";
 
 export default function EmployeeSalary(){
 
-  const theme = useAppSelector((state) => state.themeMode.theme);
+  const theme = useAppSelector((state) => state.userMode.theme);
 
     const series = [{
         name: 'Total Salary',

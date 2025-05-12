@@ -7,6 +7,7 @@ import UpcomingBirthday from "@/components/dashboard/admin/admin-dashboard/Upcom
 import UserBanner from "@/components/dashboard/admin/admin-dashboard/UserBanner";
 
 
+
 export default function AdminDashboard(){
 
     return (
@@ -32,7 +33,9 @@ export default function AdminDashboard(){
             </div>
             <div className="lg:col-span-4 col-span-12">
                 <UpcomingBirthday/>
+                
             </div>
+            
          </div>
     )
 }

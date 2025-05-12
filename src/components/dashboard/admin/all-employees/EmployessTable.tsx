@@ -4,9 +4,10 @@ import { Employee_Columns } from "./columns"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { useEffect, useMemo, useState } from "react"
 import EditEmployee from "./EditEmployee"
-import { useAppSelector } from "@/hooks/hooks"
 import DeleteEmployee from "./DeleteEmployee"
 import { Button } from "@/components/ui/button"
+import { useAllEmployeesQuery } from "@/store/api/employeeApi"
+import TableSkeleton from "@/components/shared/skeleton/TableSkeleton"
 
 export default function EmployeesTable({searchInput , salaryRange , activeDepartment}:{searchInput:string , salaryRange:string , activeDepartment:string}) {
     const[sorting , setSorting] = useState<SortingState>([]);
@@ -16,13 +17,17 @@ export default function EmployeesTable({searchInput , salaryRange , activeDepart
       pageIndex:0,
       pageSize:8
      })
-     const EmployeesData = useAppSelector((state) => state.employeeTable.employees);
+     const {data:EmployeesData, isLoading} = useAllEmployeesQuery(undefined);
      useMemo(() => {
       return employeeInfo
   },[employeeInfo]);
 
+  console.log(EmployeesData,"data")
+
   useEffect(() => {
-    setEmployeInfo(EmployeesData)
+    if(EmployeesData){
+      setEmployeInfo(EmployeesData?.data)
+    }
   },[EmployeesData]);
 
     const table = useReactTable({
@@ -53,6 +58,8 @@ export default function EmployeesTable({searchInput , salaryRange , activeDepart
       <>
       <div className="m-6 mb-0">
         <div className="rounded-md border border-border overflow-hidden" >
+          {
+            isLoading ? <TableSkeleton/> :
          <Table >
             <TableHeader>
                 {
@@ -85,6 +92,7 @@ export default function EmployeesTable({searchInput , salaryRange , activeDepart
                 }
             </TableBody>
          </Table>
+            }
         </div>
         </div>
         <div className="flex items-center justify-end space-x-2 p-4">

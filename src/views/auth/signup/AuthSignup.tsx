@@ -5,8 +5,8 @@ import AuthSignupForm from "@/components/auth/signup/AuthSignupForm";
 export default function AuthSignup(){
     return (
         <>
-       <div className="w-full h-screen flex px-6">
-         <div className="lg:w-7/12 bg-background w-full flex justify-center items-center">
+       <div className="w-full h-screen flex lg:flex-nowrap flex-wrap px-6 lg:bg-transparent bg-white">
+         <div className="lg:w-7/12 bg-background w-full lg:flex justify-center items-center hidden">
            <div className="lg:w-6/12 w-full">
            <img src={loginBg} alt="logo" />
            </div>

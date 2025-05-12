@@ -1,9 +1,30 @@
 import { Outlet } from "react-router";
 import Header from "./header/Header";
 import Sidebar from "./sidebar/Sidebar";
+import { useGetUserByTokenQuery } from "@/store/api/userApi";
+import BasicLoader from "@/components/shared/loader/BasicLoader";
+import { useAppDispatch } from "@/hooks/hooks";
+import { setAuth, setAuthenticatedUser } from "@/store/slices/userModeSlice";
+
 
 export default function FullLayout(){
-    return (
+    const {data , isLoading} = useGetUserByTokenQuery("");
+    console.log(data?.data,"testing");
+    const dispatch = useAppDispatch();
+    // const navigate = useNavigate();
+
+    if(isLoading){
+      return <BasicLoader/>
+    }
+
+    if( !data){
+      dispatch(setAuth(false));
+    }else{
+      const userData = data.data;
+      if(userData.image){
+        dispatch(setAuthenticatedUser({name:userData.fullname , email: userData.email , img: userData.image}))
+      }
+      return (
         <>
         <Header/>
          <Sidebar/>
@@ -14,4 +35,5 @@ export default function FullLayout(){
          </div>
         </>
     )
+    }
 }

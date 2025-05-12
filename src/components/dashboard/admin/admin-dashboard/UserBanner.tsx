@@ -3,8 +3,12 @@ import workBg from "@/assets/images/background/admin_work.png";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import {v4 as uuidv4} from "uuid";
+import { useAppSelector } from "@/hooks/hooks";
 
 export default function UserBanner(){
+
+   const userInfo = useAppSelector((state) => state.userMode.userInfo);
+
     const tasks = [
         {
           id: uuidv4(),
@@ -27,12 +31,13 @@ export default function UserBanner(){
           icon: "solar:chart-2-broken",
         },
     ]
+
     return (
         <Card className="p-0" >
             <img src={workBg} alt="bg" className="w-full" />
              <div className="flex flex-col gap-5 p-6 pt-0">
                 <div className="flex flex-col gap-0">
-                   <h4 className="text-center text-base font-bold uppercase">NAMASTE RUDRA!</h4>
+                   <h4 className="text-center text-base font-bold uppercase">{`NAMASTE ${userInfo.name.split(" ")[0]}!`}</h4>
                    <h5 className="text-[15px] justify-center text-muted font-medium flex items-center gap-1">
                    Good Morning!
                    <Icon icon="solar:sun-bold-duotone" width={24} height={24} className="text-secondary" />

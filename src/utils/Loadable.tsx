@@ -1,11 +1,9 @@
 import React, { Suspense, ComponentType, LazyExoticComponent, ReactNode } from "react";
-import { Loader2 } from "lucide-react"
+import BasicLoader from "@/components/shared/loader/BasicLoader";
 
 const Loadable = <P extends object>(
   Component: LazyExoticComponent<ComponentType<P>>,
-  fallback: ReactNode = <div className="flex h-screen w-full items-center justify-center" >
-     <Loader2 className="animate-spin text-primary" size={36} />
-  </div>
+  fallback: ReactNode = <BasicLoader/>
 ): React.FC<P> => {
   return (props: P) => (
     <Suspense fallback={fallback}>

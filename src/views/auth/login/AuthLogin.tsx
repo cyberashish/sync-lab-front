@@ -3,8 +3,8 @@ import AuthLoginForm from "@/components/auth/login/AuthLoginForm";
 
 export default function AuthLogin(){
     return ( 
-       <div className="w-full h-screen flex px-6">
-         <div className="lg:w-7/12 bg-background w-full flex justify-center items-center">
+       <div className="w-full h-screen flex lg:flex-nowrap lg:bg-transparent bg-white flex-wrap px-6">
+         <div className="lg:w-7/12 bg-background w-full lg:flex hidden justify-center items-center">
            <div className="lg:w-6/12 w-full">
            <img src={loginBg} alt="logo" />
            </div>

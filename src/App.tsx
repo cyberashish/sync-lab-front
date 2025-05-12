@@ -5,7 +5,7 @@ import { useAppSelector } from './hooks/hooks'
 
 function App() {
 
-  const theme = useAppSelector((state) => state.themeMode.theme);
+  const theme = useAppSelector((state) => state.userMode.theme);
 
   return (
     <div className={`${theme} bg-background min-h-screen`} >
