@@ -8,37 +8,41 @@ import { setSelectedEmployee } from "@/store/slices/employeeSlice";
 
 const TableActions = (selectedEmployee:Employee) => {
 
-    const dispatch = useAppDispatch();
-    
-  return <div className="flex items-center gap-3">
-        <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger asChild onClick={() => {
-          dispatch(setEditEmployeeDialog(true));
-          dispatch(setSelectedEmployee(selectedEmployee))
-        }} >
-        <Icon icon="solar:clapperboard-edit-broken" width={22} height={22} className="text-primary hover:text-primary/90 cursor-pointer" />
-        </TooltipTrigger>
-        <TooltipContent>
-          <p>Edit Employee</p>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger onClick={() => {
-          dispatch(setDeletEmployeeDialog(true));
-          dispatch(setSelectedEmployee(selectedEmployee))
-        }} asChild>
-        <Icon icon="solar:trash-bin-trash-broken" width={22} height={24} className="text-red-500 hover:text-red-400 cursor-pointer" />
-        </TooltipTrigger>
-        <TooltipContent className="bg-red-500 fill-red-500" >
-          <p>Delete Employee</p>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
+  const dispatch = useAppDispatch();
+  
+return <div className="flex items-center gap-3">
+      <TooltipProvider>
+    <Tooltip>
+      <TooltipTrigger asChild>
+      <button onClick={() => {
+        dispatch(setEditEmployeeDialog(true));
+        dispatch(setSelectedEmployee(selectedEmployee))
+      }} >
+      <Icon icon="solar:clapperboard-edit-broken" width={22} height={22} className="text-primary hover:text-primary/90 cursor-pointer" />
+      </button>
+      </TooltipTrigger>
+      <TooltipContent>
+        <p>Edit Employee</p>
+      </TooltipContent>
+    </Tooltip>
+  </TooltipProvider>
+  <TooltipProvider>
+    <Tooltip>
+      <TooltipTrigger  asChild>
+      <button onClick={() => {
+        dispatch(setDeletEmployeeDialog(true));
+        dispatch(setSelectedEmployee(selectedEmployee))
+      }} >
+      <Icon icon="solar:trash-bin-trash-broken" width={22} height={24} className="text-red-500 hover:text-red-400 cursor-pointer" />
+      </button>
+      </TooltipTrigger>
+      <TooltipContent className="bg-red-500 fill-red-500" >
+        <p>Delete Employee</p>
+      </TooltipContent>
+    </Tooltip>
+  </TooltipProvider>
 
-      </div>
+    </div>
 }
 
 export const Employee_Columns:ColumnDef<Employee>[] = [
