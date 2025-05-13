@@ -2,31 +2,31 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {useFormik} from "formik";
-import { useNavigate } from "react-router";
+// import { useNavigate } from "react-router";
 import { useLoginUserMutation } from "@/store/api/userApi";
-import { useAppDispatch } from "@/hooks/hooks";
-import { setAuth, setAuthenticatedUser } from "@/store/slices/userModeSlice";
+// import { useAppDispatch } from "@/hooks/hooks";
+// import { setAuth, setAuthenticatedUser } from "@/store/slices/userModeSlice";
 import { Loader2 } from "lucide-react";
 import { LoginSchema } from "@/utils/schema/loginSchema";
 
 export default function AuthLoginForm(){
 
-   const navigate = useNavigate();
+  //  const navigate = useNavigate();
    const [login,{isLoading , error}] = useLoginUserMutation();
-   const dispatch = useAppDispatch();
+  //  const dispatch = useAppDispatch();
 
     const initialValues = {
         email: "admin@gmail.com",
         password: "admin123",
     }
 
-    const {values , errors , handleBlur , touched, handleChange , handleSubmit , resetForm} = useFormik({
+    const {values , errors , handleBlur , touched, handleChange , handleSubmit } = useFormik({
         initialValues,
         validationSchema:LoginSchema,
         onSubmit: async (values) => {
            const result = await login({email:values.email , password:values.password});
-           const user = result.data.data;
-           console.log(user);
+          //  const user = result.data.data;
+          console.log(result)
           //  if(user){
           //   dispatch(setAuth(true));
           //   dispatch(setAuthenticatedUser({name: user.fullname , email:user.email , img:user.image}));
