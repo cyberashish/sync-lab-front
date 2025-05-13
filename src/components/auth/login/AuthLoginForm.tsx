@@ -27,12 +27,12 @@ export default function AuthLoginForm(){
            const result = await login({email:values.email , password:values.password});
            const user = result.data.data;
            console.log(user);
-           if(user){
-            dispatch(setAuth(true));
-            dispatch(setAuthenticatedUser({name: user.fullname , email:user.email , img:user.image}));
-            // navigate("/");
-           }
-           resetForm();
+          //  if(user){
+          //   dispatch(setAuth(true));
+          //   dispatch(setAuthenticatedUser({name: user.fullname , email:user.email , img:user.image}));
+          //   navigate("/");
+          //  }
+          //  resetForm();
         }
     });
 
