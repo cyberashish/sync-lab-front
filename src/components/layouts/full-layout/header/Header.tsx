@@ -5,6 +5,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import ThemeMode from "./ThemeMode";
 import { MobileSidebar } from "../sidebar/MobileSidebar";
 import MyProfile from "./MyProfile";
+import { Link} from "react-router";
 
 export default function Header(){
     const [searchInput , setSearchInput] = useState("");
@@ -45,17 +46,19 @@ export default function Header(){
           </div>
           <ul className="flex items-center gap-5">
             <ThemeMode/>
-            <li className="lg:block hidden relative after:absolute group after:w-10 after:h-10 after:bg-primary/20 after:start-1/2 after:-translate-x-1/2 after:top-1/2 after:-translate-y-1/2 after:rounded-full after:opacity-0 hover:after:opacity-100 after:transition-all cursor-pointer after:z-10">
+            {/* <li className="lg:block hidden relative after:absolute group after:w-10 after:h-10 after:bg-primary/20 after:start-1/2 after:-translate-x-1/2 after:top-1/2 after:-translate-y-1/2 after:rounded-full after:opacity-0 hover:after:opacity-100 after:transition-all cursor-pointer after:z-10">
                 <Icon icon="ion:mail-outline" width={24} height={24} className="text-dark relative z-20 group-hover:text-primary" />
             </li>
             <li className="lg:block hidden relative after:absolute group after:w-10 after:h-10 after:bg-primary/20 after:start-1/2 after:-translate-x-1/2 after:top-1/2 after:-translate-y-1/2 after:rounded-full after:opacity-0 hover:after:opacity-100 after:transition-all cursor-pointer after:z-10">
                 <Icon icon="solar:bell-bing-linear" width={24} height={24} className="text-dark relative z-20 group-hover:text-primary" />
                 <span className="w-2 h-2 rounded-full bg-red-500 absolute top-0 end-0.5 z-20"></span>
-            </li>
+            </li> */}
              <li className="flex items-center gap-4" >
-             <div className="sm:block hidden relative after:absolute group after:w-10 after:h-10 after:bg-primary/20 after:start-1/2 after:-translate-x-1/2 after:top-1/2 after:-translate-y-1/2 after:rounded-full after:opacity-0 hover:after:opacity-100 after:transition-all cursor-pointer after:z-10">
+               <Link to="/settings" >
+               <div className="sm:block hidden relative after:absolute group after:w-10 after:h-10 after:bg-primary/20 after:start-1/2 after:-translate-x-1/2 after:top-1/2 after:-translate-y-1/2 after:rounded-full after:opacity-0 hover:after:opacity-100 after:transition-all cursor-pointer after:z-10">
                 <Icon icon="solar:settings-linear" width={24} height={24} className="text-dark relative z-20 group-hover:text-primary" />
             </div>
+               </Link>
               <div className="h-6 border border-border"></div>
               <MyProfile/>
              </li>
