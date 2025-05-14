@@ -44,7 +44,7 @@ export default function Header(){
             <Icon icon="si:search-line" width={20} height={20} className="shrink-0 text-dark" />
           <Input onBlur={handleSearchBlur} onFocus={handleSearchFocus} value={searchInput} onChange={handleSearch} type="search" id="email" name="email" placeholder="Search..." className="max-w-80 h-9 bg-transparent dark:bg-transparent dark:text-white shadow-none border-none px-2"  />
           </div>
-          <ul className="flex items-center gap-5">
+          <ul className="flex items-center lg:gap-5 gap-0">
             <ThemeMode/>
             {/* <li className="lg:block hidden relative after:absolute group after:w-10 after:h-10 after:bg-primary/20 after:start-1/2 after:-translate-x-1/2 after:top-1/2 after:-translate-y-1/2 after:rounded-full after:opacity-0 hover:after:opacity-100 after:transition-all cursor-pointer after:z-10">
                 <Icon icon="ion:mail-outline" width={24} height={24} className="text-dark relative z-20 group-hover:text-primary" />
