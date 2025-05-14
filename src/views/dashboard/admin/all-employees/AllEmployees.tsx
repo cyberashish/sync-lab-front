@@ -66,7 +66,7 @@ export default function AllEmployees() {
   return (
     <>
       <Card className="p-0 gap-0">
-        <div className="p-6 border-b border-border flex items-center justify-between">
+        <div className="p-6 border-b border-border flex items-center lg:flex-nowrap gap-2 flex-wrap justify-between">
           <h3 className="text-lg font-semibold text-dark leading-none">
             All Employess Information
           </h3>
