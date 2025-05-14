@@ -44,7 +44,7 @@ export default function AuthLoginForm(){
       <>
         <div className="flex flex-col gap-2 items-start">
             <h3 className="text-xl leading-none font-semibold text-dark">Sign in to your account</h3>
-            <p className="text-sm text-muted font-medium">Get started with our admin dashboard? <Link to="/auth/signup" className="font-semibold text-primary hover:text-primary/90">SignIn as Admin</Link></p>
+            <p className="text-sm text-muted font-medium">Get started with our admin dashboard? <span className="font-semibold text-primary hover:text-primary/90">SignIn as Admin</span></p>
         </div>
         <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-4" >
         <div className="flex flex-col gap-1.5">
