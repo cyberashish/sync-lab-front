@@ -38,7 +38,7 @@ export default function MyProfile() {
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="bg-white dark:bg-black border-border min-w-[200px] px-4" >
-          <DropdownMenuLabel className="text-base" >My Account</DropdownMenuLabel>
+          <DropdownMenuLabel className="text-base dark:!text-white" >My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem className="flex items-center gap-2 hover:text-white dark:text-white cursor-pointer focus-visible:border-0 focus-visible:outline-0" asChild  >
             <Link to="/my-profile" >
