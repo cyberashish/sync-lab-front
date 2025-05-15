@@ -37,19 +37,19 @@ export default function MyProfile() {
           }
           </button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="bg-white dark:bg-dark border-border min-w-[200px] px-4" >
+        <DropdownMenuContent className="bg-white dark:bg-black border-border min-w-[200px] px-4" >
           <DropdownMenuLabel className="text-base" >My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem className="flex items-center gap-2 hover:text-white cursor-pointer focus-visible:border-0 focus-visible:outline-0" asChild  >
+          <DropdownMenuItem className="flex items-center gap-2 hover:text-white dark:text-white cursor-pointer focus-visible:border-0 focus-visible:outline-0" asChild  >
             <Link to="/my-profile" >
-            <Icon icon="solar:user-circle-broken" width={28} height={28} className="shrink-0 size-5.5" />
-            <p className="text-[15px] font-medium">My Profile</p>
+            <Icon icon="solar:user-circle-broken" width={28} height={28} className="shrink-0 size-5.5 dark:!text-white" />
+            <p className="text-[15px] font-medium dark:!text-white">My Profile</p>
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem className="flex items-center gap-2 hover:text-white cursor-pointer focus-visible:border-0 focus-visible:outline-0 mt-1" asChild  >
+          <DropdownMenuItem className="flex items-center gap-2 hover:text-white dark:text-white cursor-pointer focus-visible:border-0 focus-visible:outline-0 mt-1" asChild  >
             <Link to="/request-status" >
-            <Icon icon="solar:file-text-linear" width={28} height={28} className="shrink-0 size-5.5" />
-            <p className="text-[15px] font-medium">Status</p>
+            <Icon icon="solar:file-text-linear" width={28} height={28} className="shrink-0 size-5.5 dark:text-white" />
+            <p className="text-[15px] font-medium dark:text-white">Status</p>
             </Link>
           </DropdownMenuItem>
           <div className=" mt-2">
