@@ -147,7 +147,6 @@ export const Employee_Columns:ColumnDef<Employee>[] = [
     },
     filterFn: (row, _columnId, filterValue) => {
        const salary = Number(row.original.salary);
-       console.log(filterValue,"red code");
        if(filterValue !== "all"){
         const startRange = Number(filterValue.split("-")[0]);
        const endRange = Number(filterValue.split("-")[1]);

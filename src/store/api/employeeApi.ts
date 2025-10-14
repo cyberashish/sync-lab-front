@@ -43,7 +43,6 @@ export const employeeApi = createApi({
       }),
       addLeaveRequest: builder.mutation({
          query: ({...data}) => {
-            console.log(data , "Mera");
             return ({
                url: "/employee/add-request",
                method: "POST",
@@ -136,7 +135,6 @@ export const employeeApi = createApi({
       }),
       updateEmployeeRequest: builder.mutation({
          query: ({...data}) => {
-            console.log(data,"moist");
             return ({
                url: "/employee/update-request",
                method: "PUT",

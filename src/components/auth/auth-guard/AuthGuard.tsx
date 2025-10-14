@@ -7,8 +7,6 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();
   const { data, isLoading , error } = useGetUserByTokenQuery(undefined);
 
-  console.log(data,"dekha");
-
   useEffect(() => {
      if(data){
         if(data?.data?.role !== "admin"){

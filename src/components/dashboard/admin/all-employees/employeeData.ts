@@ -12,7 +12,6 @@ export interface Employee {
   pf_number: string;
   salary: string;
   active: boolean;
-  leave: number,
   current_address: string;
   permanent_address: string;
   reportOffice?: string;
@@ -39,7 +38,6 @@ export const EmployeeData:Employee[] = [
       employeeDOBDate: "1990-03-15T18:30:00.000Z",
       employeeJoiningDate: "2023-05-10T18:30:00.000Z",
       active: true,
-      leave: 10,
     },
     {
       employeeId: "65789",
@@ -59,7 +57,6 @@ export const EmployeeData:Employee[] = [
       employeeDOBDate: "1985-08-22T18:30:00.000Z",
       employeeJoiningDate: "2021-09-14T18:30:00.000Z",
       active: true,
-      leave: 10,
     },
     {
       employeeId: "67345",
@@ -79,7 +76,6 @@ export const EmployeeData:Employee[] = [
       employeeDOBDate: "1992-10-11T18:30:00.000Z",
       employeeJoiningDate: "2022-06-20T18:30:00.000Z",
       active: false,
-      leave: 5,
     },
     {
       employeeId: "12724",
@@ -99,7 +95,6 @@ export const EmployeeData:Employee[] = [
       employeeDOBDate: "1987-01-30T18:30:00.000Z",
       employeeJoiningDate: "2020-02-01T18:30:00.000Z",
       active: true,
-      leave: 10,
     },
     {
       employeeId: "83451",
@@ -119,7 +114,6 @@ export const EmployeeData:Employee[] = [
       employeeDOBDate: "1989-04-18T18:30:00.000Z",
       employeeJoiningDate: "2024-08-15T18:30:00.000Z",
       active: false,
-      leave: 5,
     },
     {
       employeeId: "37845",
@@ -139,7 +133,6 @@ export const EmployeeData:Employee[] = [
       employeeDOBDate: "1993-05-07T18:30:00.000Z",
       employeeJoiningDate: "2022-03-12T18:30:00.000Z",
       active: true,
-      leave: 11,
     },
     {
       employeeId: "92378",
@@ -159,7 +152,6 @@ export const EmployeeData:Employee[] = [
       employeeDOBDate: "1986-02-14T18:30:00.000Z",
       employeeJoiningDate: "2021-07-05T18:30:00.000Z",
       active: false,
-      leave: 17,
     },
     {
       employeeId: "17634",
@@ -179,7 +171,6 @@ export const EmployeeData:Employee[] = [
       employeeDOBDate: "1994-11-20T18:30:00.000Z",
       employeeJoiningDate: "2023-10-10T18:30:00.000Z",
       active: true,
-      leave: 12,
     },
     {
       employeeId: "94576",
@@ -199,7 +190,6 @@ export const EmployeeData:Employee[] = [
       employeeDOBDate: "1995-02-18T18:30:00.000Z",
       employeeJoiningDate: "2024-09-18T18:30:00.000Z",
       active: true,
-      leave: 7,
     }
   ]
   

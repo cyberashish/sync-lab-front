@@ -18,7 +18,6 @@ const initialState:Employee = {
     employeeDOBDate: "",
     employeeJoiningDate: "",
     active: false,
-    leave: 0
 }
 
 const employeeSlice = createSlice({

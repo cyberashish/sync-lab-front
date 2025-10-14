@@ -15,7 +15,6 @@ export default function DeleteEmployee(){
 
    const handleDeleteEmployee = async () => {
         const filteredEmployee = data.data.find((item:any) => item.email === selectedEmployee.email);
-        console.log(filteredEmployee.id);
        const result =   await deleteEmployee({id:filteredEmployee.id});
         // dispatch(setDeletEmployeeDialog(false));
         if(result.error){

@@ -71,9 +71,9 @@ export default function EmployeeRegistration() {
     validationSchema: EmployeeRegistrationSchema,
     onSubmit: async (values) => {
       if(isEdit){
-        console.log(values,"Testing data");
-       const updatedEmployee = await editEmployee(values);
-        console.log(updatedEmployee,"update task");
+        const {id , ...editableData} = values as any;
+        console.log(id,"Testing data");
+       const updatedEmployee = await editEmployee(editableData);
         if(updatedEmployee.error){
             alert("Failed to edit employee!");
         }else{
@@ -88,7 +88,6 @@ export default function EmployeeRegistration() {
             console.log(result.error , "My Error");
           }else{
             setIsDialogOpen(true);
-            console.log(result,"Rakkt Bahega");
           }
         }catch(error){
           alert("Employee Registration got failed")
