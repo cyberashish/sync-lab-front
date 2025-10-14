@@ -9,6 +9,7 @@ import { setAuth, setAuthenticatedUser } from "@/store/slices/userModeSlice";
 import { Loader2 } from "lucide-react";
 import { LoginSchema } from "@/utils/schema/loginSchema";
 import { useState } from "react";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 export default function AuthLoginForm(){
 
@@ -23,6 +24,7 @@ export default function AuthLoginForm(){
 
    const navigate = useNavigate();
    const [login,{isLoading , error}] = useLoginUserMutation();
+   const [loading , setLoading] = useState(false);
    const dispatch = useAppDispatch();
    const [currentInitialValue , setCurrentInitialValue] = useState(adminInitialValue)
 
@@ -45,9 +47,10 @@ export default function AuthLoginForm(){
         enableReinitialize: true,
     });
 
-    // function handleGoogleLogin(){
-    //   window.open(`http://localhost:8080/auth/google` , '_self')
-    // }
+    function handleGoogleLogin(){
+      setLoading(true);
+      window.open(`https://sync-lab-backend-cwqc.onrender.com/auth/google` , '_self')
+    }
 
     return (
       <>
@@ -73,29 +76,29 @@ export default function AuthLoginForm(){
         <div className={`w-fit py-1 px-3 mx-auto rounded-full bg-red-100 ${error ? 'block' :'hidden'}`}>
             {error && 'data' in error && <p className="text-sm text-red-500 font-medium" >{(error.data as { message?: string }).message || 'Login failed'}</p>}
         </div>
-        <Link to="/auth/forgot-password" className="text-sm font-medium text-primary hover:text-primary/80" >Forogt Password?</Link>
         <div className="w-full">
             <Button type="submit" disabled={isLoading} className="w-full mt-3 cursor-pointer">
               {isLoading ?  <Loader2 className="animate-spin" /> : null}
               Sign In
               </Button>
         </div>
-        <div className="flex gap-2 text-base text-gray-700 dark:text-white font-medium mt-3 items-center justify-center"><p>New to Wrappixel?</p><Link className="text-primary text-sm font-medium" to="/auth/signup">Create an account</Link></div>
-         {/* <div className="relative my-3 mb-2">
+
+         <div className="relative my-3 mb-2">
          <hr className="border-border" />
-          <span className="p-2 rounded-full text-muted absolute start-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-background">Or</span>
+          <span className="p-2 rounded-full text-muted absolute start-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-background">signup or login with</span>
          </div>
          <div className="flex items-center gap-2 w-fit mx-auto">
-            <span onClick={handleGoogleLogin} className="size-11 flex justify-center items-center rounded-full hover:bg-gray-200 cursor-pointer">
-                <Icon icon="flat-color-icons:google" className="shrink-0" width={28} height={28} />
-            </span>
-            <span className="size-11 flex justify-center items-center rounded-full hover:bg-gray-200 cursor-pointer">
-                <Icon icon="skill-icons:instagram" className="shrink-0" width={28} height={28} />
-            </span>
-            <span className="size-11 flex justify-center items-center rounded-full hover:bg-gray-200 cursor-pointer">
-                <Icon icon="logos:facebook" className="shrink-0" width={28} height={28} />
-            </span>
-          </div> */}
+         <button
+        onClick={handleGoogleLogin}
+        disabled={loading}
+        className="flex items-center gap-3 bg-white hover:text-white shadow-md px-6 py-3 rounded-full transition-all duration-200 text-gray-800 font-medium text-base w-full cursor-pointer border border-primary hover:bg-primary"
+      >
+        {loading && <Loader2 className="animate-spin h-5 w-5" />}
+        <Icon icon="flat-color-icons:google" className="shrink-0" width={24} height={24} />
+        <span>{loading ? "Redirecting..." : "Sign in with Google"}</span>
+      </button>
+          </div>
+          <div className="flex gap-2 text-base text-gray-700 dark:text-white font-medium mt-3 items-center justify-center"><p>New to Wrappixel?</p><Link className="text-primary text-sm font-medium" to="/auth/signup">Create an account</Link></div>
         </form>
       </>
     );

@@ -18,6 +18,7 @@ export default function MyProfile() {
   }
   useEffect(() => {
     if(data.data){
+      console.log(data.data,"my data")
       setAuthenticatedUser(data.data)
     }
   },[data])
@@ -27,7 +28,7 @@ export default function MyProfile() {
         <DropdownMenuTrigger asChild className="focus-visible:border-0 focus-visible:outline-0 focus:ring-0" >
         <button className="cursor-pointer" >
           {
-            authenticatedUser?.img ? <img src={authenticatedUser.img} alt="user" width={36} height={36} className="rounded-full" /> :
+            authenticatedUser?.image ? <img src={authenticatedUser.image} alt="user" width={36} height={36} className="rounded-full" /> :
             <div className="w-9 h-9 rounded-full bg-primary/10 text-primary flex justify-center items-center">
              <span className="shrink-0">
              {

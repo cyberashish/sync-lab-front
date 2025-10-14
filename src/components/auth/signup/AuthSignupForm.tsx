@@ -1,43 +1,45 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {useFormik} from "formik";
-// import { Icon } from "@iconify/react";
-import { signupSchema } from "@/utils/schema";
-import { Link, useNavigate } from "react-router";
-import { useRegisterUserMutation } from "@/store/api/userApi";
-import { useAppDispatch } from "@/hooks/hooks";
-import { setAuth, setAuthenticatedUser } from "@/store/slices/userModeSlice";
+import { Icon } from "@iconify/react/dist/iconify.js";
 import { Loader2 } from "lucide-react";
+import { useState } from "react";
+import { Link } from "react-router";
+
 
 export default function AuthSignupForm(){
 
-    const [register,{isLoading,error}] = useRegisterUserMutation();
-    const dispatch = useAppDispatch();
-    const navigate = useNavigate();
+    // const [register,{isLoading,error}] = useRegisterUserMutation();
+    // const dispatch = useAppDispatch();
+    // const navigate = useNavigate();
 
-    const initialValues = {
-        fullname : "",
-        email: "",
-        password: "",
-        confirmPassword: ""
-    }
+    // const initialValues = {
+    //     fullname : "",
+    //     email: "",
+    //     password: "",
+    //     confirmPassword: ""
+    // }
 
-    const {values , errors , handleBlur , touched, handleChange , handleSubmit , resetForm} = useFormik({
-        initialValues,
-        validationSchema:signupSchema,
-        onSubmit: async (values) => {
-           const result = await register({fullname:values.fullname , email:values.email , password:values.password});
-           const user = result.data.data;
-           if(!result?.error){
-            dispatch(setAuth(true));
-            dispatch(setAuthenticatedUser({name: user.fullname , email:user.email , img:user.image}));
-            navigate("/");
-           }
-           resetForm();
+    // const {values , errors , handleBlur , touched, handleChange , handleSubmit , resetForm} = useFormik({
+    //     initialValues,
+    //     validationSchema:signupSchema,
+    //     onSubmit: async (values) => {
+    //        const result = await register({fullname:values.fullname , email:values.email , password:values.password});
+    //        const user = result.data.data;
+    //        if(!result?.error){
+    //         dispatch(setAuth(true));
+    //         dispatch(setAuthenticatedUser({name: user.fullname , email:user.email , img:user.image}));
+    //         navigate("/");
+    //        }
+    //        resetForm();
 
-        }
-    });
+    //     }
+    // });
+
+    const [loading, setLoading] = useState(false);
+
+  const handleGoogleSignIn = () => {
+    setLoading(true);
+    // Redirect to your backend Google OAuth endpoint
+    window.open(`https://sync-lab-backend-cwqc.onrender.com/auth/google` , '_self')
+  };
 
     return (
       <>
@@ -45,8 +47,8 @@ export default function AuthSignupForm(){
             <h3 className="text-xl leading-none font-semibold text-dark">Get started absolutely free</h3>
             <p className="text-sm text-muted font-medium">Already have an account? <Link to="/auth/login" className="font-semibold text-primary hover:text-primary/90">Get started</Link></p>
         </div>
-        <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-4" >
-        <div className="flex flex-col gap-1.5">
+        <form className="mt-8 flex flex-col gap-4" >
+        {/* <div className="flex flex-col gap-1.5">
           <Label htmlFor="fullname" className="text-dark font-medium text-sm" >Fullname</Label>
           <div>
           <Input value={values.fullname} onBlur={handleBlur} onChange={handleChange} type="text" id="fullname" name="fullname" placeholder="Fullname" className={`${errors.fullname && touched.fullname ? 'border-red-500 focus:border-red-500' : null}`} />
@@ -82,22 +84,18 @@ export default function AuthSignupForm(){
             {isLoading ?  <Loader2 className="animate-spin" /> : null}
             Sign Up
             </Button>
-        </div>
-         {/* <div className="relative my-3 mb-2">
-         <hr className="border-border" />
-          <span className="p-2 text-sm font-semibold rounded-full text-muted absolute start-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-background">Or</span>
-         </div>
-         <div className="flex items-center gap-2 w-fit mx-auto">
-            <span className="size-11 flex justify-center items-center rounded-full hover:bg-gray-200 cursor-pointer">
-                <Icon icon="flat-color-icons:google" className="shrink-0" width={28} height={28} />
-            </span>
-            <span className="size-11 flex justify-center items-center rounded-full hover:bg-gray-200 cursor-pointer">
-                <Icon icon="skill-icons:instagram" className="shrink-0" width={28} height={28} />
-            </span>
-            <span className="size-11 flex justify-center items-center rounded-full hover:bg-gray-200 cursor-pointer">
-                <Icon icon="logos:facebook" className="shrink-0" width={28} height={28} />
-            </span>
-          </div> */}
+        </div> */}
+         <div className="flex items-center gap-2 w-fit">
+            <button
+        onClick={handleGoogleSignIn}
+        disabled={loading}
+        className="flex items-center gap-3 bg-white hover:text-white shadow-md px-6 py-3 rounded-full transition-all duration-200 text-gray-800 font-medium text-base w-full cursor-pointer border border-primary hover:bg-primary"
+      >
+        {loading && <Loader2 className="animate-spin h-5 w-5" />}
+        <Icon icon="flat-color-icons:google" className="shrink-0" width={24} height={24} />
+        <span>{loading ? "Redirecting..." : "Sign in with Google"}</span>
+      </button>
+          </div>
         </form>
       </>
     );
