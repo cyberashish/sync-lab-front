@@ -15,8 +15,10 @@ export default function ForgotPasswordForm() {
     try {
       setIsLoading(true);
       const res = await axios.post("https://sync-lab-backend-cwqc.onrender.com/forgot-password", { email });
+      // const res = await axios.post("http://localhost:8080/forgot-password", { email });
       setMsg(res.data.message);
     } catch (err:any) {
+      console.log(err)
       setErrorMsg(err.response?.data?.message || "Error sending link");
     }finally{
         setIsLoading(false);
