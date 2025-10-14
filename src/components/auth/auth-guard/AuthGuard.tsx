@@ -11,9 +11,8 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
      if(data){
-        if(data?.data?.fullname !== "admin"){
-          alert("Unauthorised Acces to the dashboard !");
-          navigate("/auth/login");
+        if(data?.data?.role !== "admin"){
+          navigate("/employee-dashboard");
         }
      }else{
       if(error){

@@ -12,6 +12,8 @@
     }
 }
 
+
+
 @layer utilities {
     .container{
     @apply max-w-7xl mx-auto p-6;

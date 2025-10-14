@@ -5,6 +5,7 @@ import { useGetUserByTokenQuery } from "@/store/api/userApi";
 import BasicLoader from "@/components/shared/loader/BasicLoader";
 import { useAppDispatch } from "@/hooks/hooks";
 import { setAuth, setAuthenticatedUser } from "@/store/slices/userModeSlice";
+import { Toaster } from "@/components/ui/sonner";
 
 
 export default function FullLayout(){
@@ -33,6 +34,7 @@ export default function FullLayout(){
           <Outlet/>
           </div>
          </div>
+         <Toaster />
         </>
     )
     }

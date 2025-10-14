@@ -15,6 +15,7 @@ export interface Employee {
   leave: number,
   current_address: string;
   permanent_address: string;
+  reportOffice?: string;
   employeeDOBDate: string; // ISO date string
   employeeJoiningDate: string; // ISO date string
 };

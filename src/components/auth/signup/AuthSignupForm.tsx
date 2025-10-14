@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {useFormik} from "formik";
-import { Icon } from "@iconify/react";
+// import { Icon } from "@iconify/react";
 import { signupSchema } from "@/utils/schema";
 import { Link, useNavigate } from "react-router";
 import { useRegisterUserMutation } from "@/store/api/userApi";
@@ -83,7 +83,7 @@ export default function AuthSignupForm(){
             Sign Up
             </Button>
         </div>
-         <div className="relative my-3 mb-2">
+         {/* <div className="relative my-3 mb-2">
          <hr className="border-border" />
           <span className="p-2 text-sm font-semibold rounded-full text-muted absolute start-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-background">Or</span>
          </div>
@@ -97,7 +97,7 @@ export default function AuthSignupForm(){
             <span className="size-11 flex justify-center items-center rounded-full hover:bg-gray-200 cursor-pointer">
                 <Icon icon="logos:facebook" className="shrink-0" width={28} height={28} />
             </span>
-          </div>
+          </div> */}
         </form>
       </>
     );

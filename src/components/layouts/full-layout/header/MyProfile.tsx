@@ -13,7 +13,8 @@ export default function MyProfile() {
 
   async function handleLogout(){
     await trigger(undefined); // Optional: can await for data
-    window.location.href="https://synclabems.netlify.app/"
+    // window.location.href="https://synclabems.netlify.app/"
+    window.location.href="http://localhost:5173/"
   }
   useEffect(() => {
     if(data.data){
@@ -40,13 +41,13 @@ export default function MyProfile() {
         <DropdownMenuContent className="bg-white dark:bg-black border-border min-w-[200px] px-4" >
           <DropdownMenuLabel className="text-base dark:!text-white" >My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem className="flex items-center gap-2 hover:text-white dark:text-white cursor-pointer focus-visible:border-0 focus-visible:outline-0" asChild  >
+          <DropdownMenuItem className="flex items-center gap-2 hover:!text-primary dark:hover:text-primary dark:text-white cursor-pointer focus-visible:border-0 focus-visible:outline-0 hover:!bg-primary/10" asChild  >
             <Link to="/my-profile" >
             <Icon icon="solar:user-circle-broken" width={28} height={28} className="shrink-0 size-5.5 dark:!text-white" />
             <p className="text-[15px] font-medium dark:!text-white">My Profile</p>
             </Link>
           </DropdownMenuItem>
-          <DropdownMenuItem className="flex items-center gap-2 hover:text-white dark:text-white cursor-pointer focus-visible:border-0 focus-visible:outline-0 mt-1" asChild  >
+          <DropdownMenuItem className="flex items-center gap-2 hover:!text-primary dark:hover:text-primary dark:text-white cursor-pointer focus-visible:border-0 focus-visible:outline-0 mt-1 hover:!bg-primary/10" asChild  >
             <Link to="/request-status" >
             <Icon icon="solar:file-text-linear" width={28} height={28} className="shrink-0 size-5.5 dark:text-white" />
             <p className="text-[15px] font-medium dark:text-white">Status</p>

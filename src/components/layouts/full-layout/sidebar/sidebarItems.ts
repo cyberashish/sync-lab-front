@@ -70,5 +70,50 @@ const sidebarItems:sidebarItem[] = [
         ]
     }
 ]
+const employeeSidebarItems:sidebarItem[] = [
+    {
+        id: uuidv4(),
+        block:"General",
+        children:[
+            {
+                id: uuidv4(),
+                title:"Overview",
+                icon:"solar:qr-code-linear",
+                url:"/employee-dashboard"
+            },
+            {
+                id: uuidv4(),
+                title:"Request Leave",
+                icon:"pajamas:leave",
+                url:"/request-leave"
+            },
+            {
+                id: uuidv4(),
+                title:"My Profile",
+                icon:"solar:user-circle-outline",
+                url:"/my-profile"
+            },
+        ]
+    },
+    {
+        id: uuidv4(),
+        block:"Support",
+        children:[
+            {
+                id: uuidv4(),
+                title:"Status",
+                icon:"solar:checklist-minimalistic-broken",
+                url:"/request-status/employee"
+            },
+            {
+                id: uuidv4(),
+                title:"Settings",
+                icon:"solar:settings-linear",
+                url:"/settings"
+            },
+        ]
+    }
+]
 
-export {sidebarItems}
+
+export {sidebarItems , employeeSidebarItems}

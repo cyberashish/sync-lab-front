@@ -22,7 +22,7 @@ export const TableActions = (selectedRequest:EmployeeRequestType) => {
               icon="solar:check-circle-bold"
               width={24}
               height={24}
-              className="text-primary hover:text-primary/90 cursor-pointer"
+              className="text-success hover:text-success/90 cursor-pointer"
             />
             </button>
           </TooltipTrigger>
@@ -56,7 +56,7 @@ export const TableActions = (selectedRequest:EmployeeRequestType) => {
         icon="solar:verified-check-bold"
         width={24}
         height={24}
-        className="text-primary hover:text-primary/90 cursor-pointer"
+        className="text-success hover:text-success/90 cursor-pointer"
       /> :  <Icon
       icon="icon-park-twotone:close-one"
       width={24}

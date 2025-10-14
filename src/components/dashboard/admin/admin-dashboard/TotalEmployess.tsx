@@ -43,9 +43,9 @@ export default function TotalEmployess() {
 
   const {data , isLoading} = useAllEmployeesQuery(undefined);
   // const [state , dispatch] = useReducer(reducer , initialState);
-  const [departmentCountByEmployees , setDepartmentCountByEmployees] = useState<any[]>([]);
   const departments = ["Engineering" , "Design" , "Quality Assurance" , "Sales"];
   const [employeesBasedOnDepartments , setEmployeesBasedOnDepartments] = useState<any[]>([]);
+  const [employeesStrengthByDepartment , setEmployeesStrengthByDepartment] = useState<any[]>([]);
 
   const designations = [
     {
@@ -68,7 +68,7 @@ export default function TotalEmployess() {
     },
     {
       id: uuidv4(),
-      color: "bg-accent",
+      color: "bg-primary",
       designation: "Sales",
       total: 7,
     },
@@ -84,8 +84,6 @@ export default function TotalEmployess() {
       departmentCouts.unshift(employeeByDepartment.length)
      });
 
-     setDepartmentCountByEmployees(departmentCouts);
-
   }
 
   useEffect(() => {
@@ -95,7 +93,9 @@ export default function TotalEmployess() {
         const filteredData = data.data.filter((value:any) => value.department === employee.designation);
         return {...employee , total: filteredData.length}
       });
+      const employeesStrength = modifiedData.map((employee) => employee.total);
       setEmployeesBasedOnDepartments(modifiedData);
+      setEmployeesStrengthByDepartment(employeesStrength)
     }
   },[data])
 
@@ -108,9 +108,9 @@ export default function TotalEmployess() {
   };
 
   const ChartData: ChartDataType = {
-    series: departmentCountByEmployees,
+    series: employeesStrengthByDepartment,
     options: {
-      labels: ["Design" , "Engineering " , "Sales" , "QA"],
+      labels: ["Engineering" , "Design" , "QA" , "Sales"],
       chart: {
         height: 190,
         type: "donut",
@@ -181,7 +181,7 @@ export default function TotalEmployess() {
         isLoading?<ChartSkeleton/>:<Chart
         key={JSON.stringify(ChartData)}
         options={ChartData.options}
-        series={departmentCountByEmployees}
+        series={employeesStrengthByDepartment}
         type="donut"
         width="100%"
         height="220px"

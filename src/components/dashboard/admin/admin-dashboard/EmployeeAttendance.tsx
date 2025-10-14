@@ -1,26 +1,29 @@
 import { Card, CardContent } from "@/components/ui/card";
+import { useAllEmployeesQuery } from "@/store/api/employeeApi";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import {v4 as uuidv4} from "uuid";
 
 export default function EmployeeAttendance() {
+  const {data:employees} = useAllEmployeesQuery(undefined);
+
     const Employees = [
         {
             id: uuidv4(),
-            employess: 40,
+            employess: employees?.data?.length ?? 0,
             status: "present",
             color: "primary",
             icon: "solar:user-plus-broken"
         },
         {
             id: uuidv4(),
-            employess: 10,
+            employess: 0,
             status: "absent",
             color: "warning",
             icon: "solar:user-minus-broken"
         },
         {
             id: uuidv4(),
-            employess: 12,
+            employess: 0,
             status: "leave",
             color: "error",
             icon: "solar:user-cross-broken"

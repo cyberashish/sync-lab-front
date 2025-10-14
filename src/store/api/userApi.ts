@@ -2,7 +2,8 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const userApi = createApi({
     reducerPath: 'userApi',
-    baseQuery: fetchBaseQuery({baseUrl: 'https://sync-lab-backend-a9ik.onrender.com' , credentials: 'include'}),
+    baseQuery: fetchBaseQuery({baseUrl: 'https://sync-lab-backend-cwqc.onrender.com' , credentials: 'include'}),
+    // baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:8080' , credentials: 'include'}),
     tagTypes: ['User'],
     endpoints: (builder) => ({
        getUserByToken: builder.query({
@@ -27,8 +28,16 @@ export const userApi = createApi({
           body: {email,password}
          }),
          invalidatesTags: ['User'],
+       }),
+       updateUserPassword: builder.mutation({
+         query: ({email,password}) => ({
+          url: "/user/update-password",
+          method: "PUT",
+          body:{email,password}
+         }),
+         invalidatesTags: ['User']
        })
     })
 })
 
-export const {useGetUserByTokenQuery , useLazyLogoutUserQuery , useRegisterUserMutation,useLoginUserMutation} = userApi
+export const {useGetUserByTokenQuery , useLazyLogoutUserQuery , useRegisterUserMutation,useLoginUserMutation , useUpdateUserPasswordMutation} = userApi

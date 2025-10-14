@@ -1,52 +1,49 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useGetUserByTokenQuery, useUpdateUserPasswordMutation } from "@/store/api/userApi";
 import { ChangePassWordSchmea } from "@/utils/schema/changePasswordSchema";
 import { useFormik } from "formik";
+import { Loader2 } from "lucide-react";
 
 export default function ChangePassword() {
 
     const initialValues = {
-        oldPassword: "",
         newPassword: "",
         confirmNewPassword: ""
+    }
+
+    const {data:User} = useGetUserByTokenQuery(undefined);
+    const [updatePassword,{isLoading}] = useUpdateUserPasswordMutation();
+    
+    async function handlePassword(email:string,password:string){
+      try{
+       const updatedUser =  await updatePassword({email , password});
+       if(updatedUser.error){
+         alert("Failed to update password!")
+       }else{
+         alert("Password updated successfully!")
+       }
+        
+      }catch(error){
+        console.log("Failed to update password" , error)
+      }
     }
 
     const {values , handleChange , handleSubmit , handleBlur , errors , touched} = useFormik({
         initialValues,
         validationSchema: ChangePassWordSchmea,
         onSubmit: (values) => {
-           console.log(values);
+           if(User?.data?.email){
+            
+              handlePassword(User?.data?.email , values.confirmNewPassword)
+           }
         }
     })
   return (
     <>
      <h1 className="text-lg text-center mb-5 font-semibold" >Change Password</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-2" >
-        {/* Enter Old Password */}
-        <div className="flex flex-col gap-1.5 lg:col-span-6 col-span-12">
-          <Label
-            htmlFor="oldPassword"
-            className="text-dark font-medium text-sm"
-          >
-            Old Password
-          </Label>
-          <div>
-            <Input
-              type="password"
-              id="oldPassword"
-              name="oldPassword"
-              value={values.oldPassword}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              className={`placeholder:text-muted/40 placeholder:text-sm !text-xl ${errors.oldPassword && touched.oldPassword ? 'focus:border-red-500 border-red-500' : null}`}
-              placeholder="✱✱✱✱✱✱✱✱"
-            />
-          </div>
-          {
-            errors.oldPassword && touched.oldPassword ? <p className="text-sm font-medium text-red-500" >{errors.oldPassword}</p> : null
-          }
-        </div>
         {/* Enter New Password */}
         <div className="flex flex-col gap-1.5 lg:col-span-6 col-span-12">
           <Label
@@ -97,7 +94,7 @@ export default function ChangePassword() {
         </div>
         <div className="col-span-12 mt-4">
               <div className="w-full flex justify-center ">
-              <Button className="lg:w-2/12 w-full" type="submit" >Submit</Button>
+              <Button disabled={isLoading} className="lg:w-2/12 w-full px-4" type="submit" > {isLoading && <Loader2 className="animate-spin" />} Submit</Button>
               </div>
             </div>
       </form>

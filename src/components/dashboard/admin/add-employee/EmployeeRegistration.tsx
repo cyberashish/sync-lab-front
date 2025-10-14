@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
+// import { Calendar } from "@/components/ui/calendar";
 import { Card } from "@/components/ui/card";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -85,7 +85,7 @@ export default function EmployeeRegistration() {
           const result = await trigger({...values});
           if(result.error){
             alert("Employee Registration got failed");
-            console.log(result.error);
+            console.log(result.error , "My Error");
           }else{
             setIsDialogOpen(true);
             console.log(result,"Rakkt Bahega");
@@ -248,47 +248,59 @@ const [startDate, setStartDate] = useState<null | Date>(null);
               {errors.employeeDOBDate && touched.employeeDOBDate ? <p className="text-sm text-red-500 font-medium" >{errors.employeeDOBDate}</p> : null}
             </div>
             {/* Joining Date */}
-            <div className="flex flex-col gap-1.5 lg:col-span-4 col-span-12">
-              <Label
-                htmlFor="employee_DOB"
-                className="text-dark font-medium text-sm"
-              >
-                Joining Date
-              </Label>
-              <div>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant={"outline"}
-                      onBlur={() => setFieldTouched("employeeJoiningDate" , true)}
-                      className={cn(
-                        `w-full justify-start text-left font-normal ${errors.employeeJoiningDate && touched.employeeJoiningDate ? 'border-red-500':null}`,
-                        !employeeJoiningDate && "text-muted-foreground"
-                      )}
-                    >
-                      <CalendarIcon />
-                      {values.employeeJoiningDate ? (
-                        format(values.employeeJoiningDate, "PPP")
-                      ) : (
-                        <span>Pick a date</span>
-                      )}
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent
-                    className="w-auto p-0 border-border"
-                    align="start"
-                  >
-                    <Calendar
-                      mode="single"
-                      selected={employeeJoiningDate}
-                      onSelect={setEmployeeJoiningDate}
-                      initialFocus
-                    />
-                  </PopoverContent>
-                </Popover>
-              </div>
-              {errors.employeeJoiningDate && touched.employeeJoiningDate ? <p className="text-sm text-red-500 font-medium" >{errors.employeeJoiningDate}</p> : null}
-            </div>
+{/* Joining Date */}
+<div className="flex flex-col gap-1.5 lg:col-span-4 col-span-12">
+  <Label
+    htmlFor="employee_joining_date"
+    className="text-dark font-medium text-sm"
+  >
+    Joining Date
+  </Label>
+  <div>
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button
+          variant={"outline"}
+          onBlur={() => setFieldTouched("employeeJoiningDate", true)}
+          className={cn(
+            `w-full justify-start text-left font-normal ${
+              errors.employeeJoiningDate && touched.employeeJoiningDate
+                ? "border-red-500"
+                : null
+            }`,
+            !employeeJoiningDate && "text-muted-foreground"
+          )}
+        >
+          <CalendarIcon />
+          {values.employeeJoiningDate ? (
+            format(values.employeeJoiningDate, "PPP")
+          ) : (
+            <span>Pick a date</span>
+          )}
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-auto p-0 border-border" align="start">
+        <div className="flex justify-center border-primary w-full">
+          <DatePicker
+            selected={employeeJoiningDate}
+            onChange={(date) => setEmployeeJoiningDate(date ?? undefined)}
+            peekNextMonth
+            showMonthDropdown
+            showYearDropdown
+            inline
+            dropdownMode="select"
+          />
+        </div>
+      </PopoverContent>
+    </Popover>
+  </div>
+  {errors.employeeJoiningDate && touched.employeeJoiningDate ? (
+    <p className="text-sm text-red-500 font-medium">
+      {errors.employeeJoiningDate}
+    </p>
+  ) : null}
+</div>
+
             {/* Mobile Number */}
             <div className="flex flex-col gap-1.5 lg:col-span-6 col-span-12">
               <Label

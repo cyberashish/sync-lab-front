@@ -2,26 +2,35 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {useFormik} from "formik";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useLoginUserMutation } from "@/store/api/userApi";
 import { useAppDispatch } from "@/hooks/hooks";
 import { setAuth, setAuthenticatedUser } from "@/store/slices/userModeSlice";
 import { Loader2 } from "lucide-react";
 import { LoginSchema } from "@/utils/schema/loginSchema";
+import { useState } from "react";
 
 export default function AuthLoginForm(){
+
+  const adminInitialValue = {
+    email: "admin@gmail.com",
+    password: "admin123",
+};
+  const employeeInitialValue = {
+    email: "cyberashish321@gmail.com",
+    password: "Cyber789",
+};
 
    const navigate = useNavigate();
    const [login,{isLoading , error}] = useLoginUserMutation();
    const dispatch = useAppDispatch();
+   const [currentInitialValue , setCurrentInitialValue] = useState(adminInitialValue)
 
-    const initialValues = {
-        email: "admin@gmail.com",
-        password: "admin123",
-    }
+
+    // const initialValues = currentInitialValue
 
     const {values , errors , handleBlur , touched, handleChange , handleSubmit , resetForm} = useFormik({
-        initialValues,
+        initialValues:currentInitialValue,
         validationSchema:LoginSchema,
         onSubmit: async (values) => {
            const result = await login({email:values.email , password:values.password});
@@ -33,7 +42,8 @@ export default function AuthLoginForm(){
             navigate("/");
            }
            resetForm();
-        }
+        },
+        enableReinitialize: true,
     });
 
     // function handleGoogleLogin(){
@@ -44,7 +54,7 @@ export default function AuthLoginForm(){
       <>
         <div className="flex flex-col gap-2 items-start">
             <h3 className="text-xl leading-none font-semibold text-dark">Sign in to your account</h3>
-            <p className="text-sm text-muted font-medium">Get started with our admin dashboard? <span className="font-semibold text-primary hover:text-primary/90">SignIn as Admin</span></p>
+            <p className="text-sm text-muted font-medium">Get started with our admin dashboard? <span onClick={() => setCurrentInitialValue(adminInitialValue)} className="cursor-pointer font-semibold text-primary hover:text-primary/90">SignIn as Admin</span> Or <span onClick={() => setCurrentInitialValue(employeeInitialValue)} className="cursor-pointer font-semibold text-primary hover:text-primary/90">SignIn as Employee</span></p>
         </div>
         <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-4" >
         <div className="flex flex-col gap-1.5">
@@ -64,12 +74,14 @@ export default function AuthLoginForm(){
         <div className={`w-fit py-1 px-3 mx-auto rounded-full bg-red-100 ${error ? 'block' :'hidden'}`}>
             {error && 'data' in error && <p className="text-sm text-red-500 font-medium" >{(error.data as { message?: string }).message || 'Login failed'}</p>}
         </div>
+        <Link to="/auth/forgot-password" className="text-sm font-medium text-primary hover:text-primary/80" >Forogt Password?</Link>
         <div className="w-full">
             <Button type="submit" disabled={isLoading} className="w-full mt-3 cursor-pointer">
               {isLoading ?  <Loader2 className="animate-spin" /> : null}
               Sign In
               </Button>
         </div>
+        <div className="flex gap-2 text-base text-gray-700 dark:text-white font-medium mt-3 items-center justify-center"><p>New to Wrappixel?</p><Link className="text-primary text-sm font-medium" to="/auth/signup">Create an account</Link></div>
          {/* <div className="relative my-3 mb-2">
          <hr className="border-border" />
           <span className="p-2 rounded-full text-muted absolute start-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-background">Or</span>

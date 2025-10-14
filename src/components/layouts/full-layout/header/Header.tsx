@@ -6,6 +6,7 @@ import ThemeMode from "./ThemeMode";
 import { MobileSidebar } from "../sidebar/MobileSidebar";
 import MyProfile from "./MyProfile";
 import { Link} from "react-router";
+import Notification from "./Notification";
 
 export default function Header(){
     const [searchInput , setSearchInput] = useState("");
@@ -53,6 +54,7 @@ export default function Header(){
                 <Icon icon="solar:bell-bing-linear" width={24} height={24} className="text-dark relative z-20 group-hover:text-primary" />
                 <span className="w-2 h-2 rounded-full bg-red-500 absolute top-0 end-0.5 z-20"></span>
             </li> */}
+            <Notification/>
              <li className="flex items-center gap-4" >
                <Link to="/settings" >
                <div className="sm:block hidden relative after:absolute group after:w-10 after:h-10 after:bg-primary/20 after:start-1/2 after:-translate-x-1/2 after:top-1/2 after:-translate-y-1/2 after:rounded-full after:opacity-0 hover:after:opacity-100 after:transition-all cursor-pointer after:z-10">

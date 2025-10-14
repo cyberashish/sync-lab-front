@@ -17,7 +17,7 @@ export default function EmployeeSalary(){
             fontFamily: 'inherit',
             height: 350,
             toolbar: {
-                show: false
+                show: false 
             },
           },
           colors: ['var(--color-primary)'],

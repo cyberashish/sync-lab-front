@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent,  DialogHeader, DialogTitle} from "@/components/ui/dialog";
 import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
-import { useUpdateEmployeeRequestMutation } from "@/store/api/employeeApi";
+import { useAddEmployeeNotificationMutation, useUpdateEmployeeRequestMutation } from "@/store/api/employeeApi";
 import { setDisapprovalDialog} from "@/store/slices/requestStatusSlice";
 import { Loader2 } from "lucide-react";
 
@@ -10,6 +10,7 @@ import { Loader2 } from "lucide-react";
 export default function ResolveRequestDialog(){
     const isDialogOpen = useAppSelector((state) => state.requestStatus.isDisapproveDialogOpen);
     const selectedRequest:any = useAppSelector((state) => state.requestStatus.selectedRequest);
+    const [addEmployeeNotification] = useAddEmployeeNotificationMutation();
     const dispatch = useAppDispatch();
 
     const [updateRequest , {isLoading}] = useUpdateEmployeeRequestMutation();
@@ -18,6 +19,7 @@ export default function ResolveRequestDialog(){
       const result = await updateRequest({id:selectedRequest?.id ,requestStatus: "Disapproved" , isRequestApproved: false });
       console.log(result);
        dispatch(setDisapprovalDialog(false));
+       await addEmployeeNotification({email:selectedRequest?.email , title : "Leave Disapproved" , message:"Your leave has been disapproved!" , type:"LEAVE_REQUEST"})
     }
 
     return (

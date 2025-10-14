@@ -6,6 +6,7 @@ export interface EmployeeRequestType {
     date: string,
     description: string,
     leave: number,
+    leaveDates?: any,
     requestStatus: string,
     isRequestApproved: boolean,
 }
