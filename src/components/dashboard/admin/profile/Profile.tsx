@@ -72,10 +72,11 @@ export default function Profile(){
     return (
       <Card className="max-w-md mx-auto" >
     <div className="flex items-center flex-col gap-3.5">
-       <div className="w-36 h-36 rounded-full outline-3 outline-primary outline-offset-3 bg-lightprimary text-primary text-8xl font-medium flex items-center justify-center">
-       {/* <img src={user} alt="profile_image"  className="rounded-full w-full" /> */}
+       {
+        User.data.image ? <img src={User.data.image} alt="profile_img" className="w-36 h-36 rounded-full outline-3 outline-primary outline-offset-3" /> : <div className="w-36 h-36 rounded-full outline-3 outline-primary outline-offset-3 bg-lightprimary text-primary text-8xl font-medium flex items-center justify-center">
         {User?.data?.fullname?.split("")[0].toLocaleUpperCase()}
        </div>
+       }
        <div className="flex flex-col gap-0.5 items-center">
          <h3 className="text-lg font-semibold text-dark leading-none">{User?.data?.fullname}</h3>
          <p className="text-sm font-medium text-muted leading-none">{User?.data?.email}</p>
