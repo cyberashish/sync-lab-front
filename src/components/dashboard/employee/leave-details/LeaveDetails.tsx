@@ -14,7 +14,7 @@ export default function LeaveDetails() {
       icon: "tdesign:undertake-delivery",
       metric: "Leaves Taken",
       amount: `${employee.totalLeaves ?? 0}`,
-      color: "bg-success/10 text-success",
+      color: "bg-primary/10 text-primary",
     },
     {
       id: "3",
@@ -35,7 +35,7 @@ export default function LeaveDetails() {
       icon: "material-symbols-light:holiday-village-outline-rounded",
       metric: "Vacation Leaves",
       amount: `${employee.vacationLeaves ?? 0}`,
-      color: "bg-primary/10 text-primary",
+      color: "bg-success/10 text-success",
     },
   ];
 

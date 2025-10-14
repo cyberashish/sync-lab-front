@@ -17,7 +17,7 @@ export default function LeaveChart() {
     chart: {
       type: "donut",
     },
-    labels: ["Casual ", "Sick " , "Vacation"],
+    labels: ["Sick", "Casual" , "Vacation"],
     colors: ["var(--color-warning)", "var(--color-error)" , "var(--color-success)"], 
     dataLabels: {
         enabled: false,
