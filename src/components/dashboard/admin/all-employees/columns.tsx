@@ -211,7 +211,7 @@ export const Employee_Columns:ColumnDef<Employee>[] = [
    cell: ({row}) => {
       const isActive = row.getValue("active");
       if(isActive){
-        return <span className="py-0.5 px-2 text-xs bg-primary/20 text-primary rounded-full" >Active</span>
+        return <span className="py-0.5 px-2 text-xs bg-success/20 text-success rounded-full" >Active</span>
       }else{
         return <span className="py-0.5 px-2 text-xs bg-gray-200 text-gray-400 rounded-full" >Inactive</span>
       }
