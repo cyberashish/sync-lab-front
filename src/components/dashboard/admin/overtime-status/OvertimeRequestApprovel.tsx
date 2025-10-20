@@ -1,16 +1,16 @@
 import { Card } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { flexRender, getCoreRowModel, getFilteredRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table";
-import { EmployeeRequestColumn } from "./employeeRequestColumn";
+import { flexRender, getCoreRowModel, getFilteredRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table"; 
 import ResolveRequestDialog from "./Dialog/ResolveRequestDialog";
 import { useEffect, useMemo, useReducer, useState } from "react";
-import { EmployeeRequestType } from "./employeeRequestData";
 import DisapproveRequestDialog from "./Dialog/ResolveRequestDialog1";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { Input } from "@/components/ui/input";
-import { useEditEmployeeMutation, useGetAllEmployeesRequestQuery } from "@/store/api/employeeApi";
+import { useEditEmployeeMutation, useGetAllEmployeesOvertimeRequestQuery } from "@/store/api/employeeApi";
 import TableSkeleton from "@/components/shared/skeleton/TableSkeleton";
 import { useAppSelector } from "@/hooks/hooks";
+import { EmployeeOvertimeRequestColumn } from "./employeeOvertimeRequestColumn";
+import { EmployeeRequestType } from "../request-status/employeeRequestData";
 
 
 interface initialStateType {
@@ -22,7 +22,7 @@ const initialState = {
     searchInput:""
 }
 
-export default function RequestApproval(){
+export default function OvertimeRequestApproval(){
 
     const searchInput  = "SEARCH_INPUT";
     const inputFocussed = "SEARCH_INPUT_FOCUSSED";
@@ -43,7 +43,7 @@ export default function RequestApproval(){
     const [state , dispatch] = useReducer(reducer, initialState)
     const [EmployeeRequestData , setEmployeeRequestData] = useState<EmployeeRequestType[]>([]);
 
-    const {data , isLoading} = useGetAllEmployeesRequestQuery(undefined);
+    const {data , isLoading} = useGetAllEmployeesOvertimeRequestQuery(undefined);
 
     const handleSearchFocus = () => {
        dispatch({type:inputFocussed , payload:true})
@@ -65,7 +65,7 @@ export default function RequestApproval(){
 
     const table = useReactTable({
         data: RequestsData,
-        columns: EmployeeRequestColumn,
+        columns: EmployeeOvertimeRequestColumn,
         getCoreRowModel: getCoreRowModel(),
         getFilteredRowModel:getFilteredRowModel(),
         getSortedRowModel: getSortedRowModel(),
@@ -91,7 +91,7 @@ export default function RequestApproval(){
         <>
         <Card className="p-0">
             <div className="p-6 border-b border-border flex items-center lg:flex-nowrap gap-2 flex-wrap justify-between">
-                <h5 onClick={handleTest} className="text-lg font-semibold leading-none text-dark">Leave Request Status</h5>
+                <h5 onClick={handleTest} className="text-lg font-semibold leading-none text-dark">Overtime Request Status</h5>
                 <div
             className={`flex items-center border rounded-md px-3 flex-1 max-w-80 ${
               state.isSearchFocussed ? "border-primary " : "border-border"

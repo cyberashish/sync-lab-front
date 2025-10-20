@@ -1,16 +1,14 @@
 import { Card } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { flexRender, getCoreRowModel, getFilteredRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table";
-import { EmployeeRequestColumn } from "./employeeRequestColumn";
-import ResolveRequestDialog from "./Dialog/ResolveRequestDialog";
 import { useEffect, useMemo, useReducer, useState } from "react";
-import { EmployeeRequestType } from "./employeeRequestData";
-import DisapproveRequestDialog from "./Dialog/ResolveRequestDialog1";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { Input } from "@/components/ui/input";
-import { useEditEmployeeMutation, useGetAllEmployeesRequestQuery } from "@/store/api/employeeApi";
 import TableSkeleton from "@/components/shared/skeleton/TableSkeleton";
+import { EmployeeRequestType } from "../../admin/request-status/employeeRequestData";
+import { useGetEmployeeOvertimeRequestsMutation } from "@/store/api/employeeApi";
 import { useAppSelector } from "@/hooks/hooks";
+import { EmployeeOvertimeRequestColumn } from "./employeeOvertimeRequestColumn";
 
 
 interface initialStateType {
@@ -22,10 +20,11 @@ const initialState = {
     searchInput:""
 }
 
-export default function RequestApproval(){
+export default function OvertimeRequestDetails(){
 
     const searchInput  = "SEARCH_INPUT";
     const inputFocussed = "SEARCH_INPUT_FOCUSSED";
+    const [data , setData] = useState<any[]>([]);
 
     const reducer = ( state:initialStateType , action:{type:string , payload:any}) => {
        switch(action.type){
@@ -42,8 +41,10 @@ export default function RequestApproval(){
  
     const [state , dispatch] = useReducer(reducer, initialState)
     const [EmployeeRequestData , setEmployeeRequestData] = useState<EmployeeRequestType[]>([]);
+    const [getEmployeeOvertimeRequestInfo , {isLoading}] = useGetEmployeeOvertimeRequestsMutation();
+    const employee = useAppSelector((state) => state.employee);
 
-    const {data , isLoading} = useGetAllEmployeesRequestQuery(undefined);
+    
 
     const handleSearchFocus = () => {
        dispatch({type:inputFocussed , payload:true})
@@ -58,14 +59,28 @@ export default function RequestApproval(){
 
     useEffect(() => {
         if(data){
-            setEmployeeRequestData(data.data);
-            console.log(data.data)
+            setEmployeeRequestData(data);
         }
     },[data])
 
+    async function handleRequest(email: string) {
+      try {
+        const result = await getEmployeeOvertimeRequestInfo({ email });
+        setData(result.data.data.overtimes);
+      } catch (error) {
+        console.log("Failed to fetch overtime requests!", error);
+      }
+    }
+
+    useEffect(() => {
+       if(employee){
+          handleRequest(employee.email)
+       }
+    },[employee])
+
     const table = useReactTable({
         data: RequestsData,
-        columns: EmployeeRequestColumn,
+        columns: EmployeeOvertimeRequestColumn,
         getCoreRowModel: getCoreRowModel(),
         getFilteredRowModel:getFilteredRowModel(),
         getSortedRowModel: getSortedRowModel(),
@@ -77,21 +92,11 @@ export default function RequestApproval(){
    }
 
 
-       const employee:any = useAppSelector((state) => state.employee);
-       const [updateEmployeeLeave] = useEditEmployeeMutation();
-       const selectedRequest:any = useAppSelector((state) => state.requestStatus.selectedRequest);
-
-    async function handleTest(){
-        console.log(selectedRequest, "my data");
-
-        await updateEmployeeLeave({email: employee.email , totalLeaves:  employee.totalLeaves , casualLeaves: employee.casualLeaves})
-    }
-
     return (
         <>
         <Card className="p-0">
             <div className="p-6 border-b border-border flex items-center lg:flex-nowrap gap-2 flex-wrap justify-between">
-                <h5 onClick={handleTest} className="text-lg font-semibold leading-none text-dark">Leave Request Status</h5>
+                <h5  className="text-lg font-semibold leading-none text-dark">Overtime Request Status</h5>
                 <div
             className={`flex items-center border rounded-md px-3 flex-1 max-w-80 ${
               state.isSearchFocussed ? "border-primary " : "border-border"
@@ -157,10 +162,6 @@ export default function RequestApproval(){
             </div>
             </div>
         </Card>
-        {/* Approve Request Dialog */}
-        <ResolveRequestDialog/>
-        {/* DisApprove Request Dialog */}
-        <DisapproveRequestDialog/>
         </>
     )
 }

@@ -41,15 +41,24 @@ export default function Notification() {
 
   const navigate = useNavigate();
 
-  async function handleNotification(notificationId:string){
+  async function handleNotification(notificationId:string , notificationType:string){
       try{
         if(user.data.role === "admin"){
           await updateNotification({notificationId});
-          navigate("/request-status");
+          if(notificationType === "LEAVE_REQUEST"){
+            navigate("/request-status");
+          }else{
+            navigate("/overtime-status");
+          }
         }else{
           await updateEmployeeNotification({notificationId});
-          handleEmployeeNotification(user.data.email)
-          navigate("/request-status/employee");
+          handleEmployeeNotification(user.data.email);
+          if(notificationType === "LEAVE_REQUEST"){
+            navigate("/request-status/employee");
+          }else{
+            navigate("/request-overtime-status/employee");
+          }
+          
         }
         
       }catch(error){
@@ -106,10 +115,10 @@ export default function Notification() {
             <DropdownMenuSeparator />
             {
               allNotifications.map((item:any) => (
-                <DropdownMenuItem onClick={() => handleNotification(item.id)} key={item.id} className="px-4 py-2 cursor-pointer hover:!bg-gray-100 flex items-start justify-between gap-4 hover group/item" >
+                <DropdownMenuItem onClick={() => handleNotification(item.id , item.type)} key={item.id} className="px-4 py-2 cursor-pointer hover:!bg-gray-100 flex items-start justify-between gap-4 hover group/item" >
                 <div className="flex items-center gap-2.5 min-w-0">
-                  <span className={`size-9 rounded-full shrink-0 flex items-center justify-center ${getColorByAlphabet(item.message.split(" ")[0].split("")[0].toUpperCase())}`}>
-                    {item.message.split(" ")[0].split("")[0].toUpperCase()}
+                  <span className={`size-9 rounded-full shrink-0 flex items-center justify-center ${user.data.role === "admin" ? getColorByAlphabet(item.message.split(" ")[0].split("")[0].toUpperCase()) : item.type === "LEAVE_REQUEST" ?'bg-primary/10 text-primary' : 'bg-success/10 text-success'}`}>
+                    {user.data.role === "admin" ? item.message.split(" ")[0].split("")[0].toUpperCase() : item.type === "LEAVE_REQUEST" ? <Icon icon="tdesign:undertake-delivery" width={20} height={20} /> : <Icon icon="lsicon:overtime-outline" width={20} height={20} />}
                   </span>
                    <div className="flex flex-col gap-0 min-w-0">
                     <h6 className="text-base text-dark leading-tight max-w-48 truncate group-hover/item:text-primary">{item.title}</h6>

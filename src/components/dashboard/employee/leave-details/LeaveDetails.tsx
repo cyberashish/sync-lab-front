@@ -3,7 +3,7 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import LeaveChart from "./LeaveChart";
 import { useAppSelector } from "@/hooks/hooks";
 
-export default function LeaveDetails() {
+export default function LeaveDetails() { 
 
 
   const employee:any = useAppSelector((state) => state.employee);

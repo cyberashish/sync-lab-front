@@ -18,9 +18,13 @@ const AllEmployees = Loadable(lazy(() => import("../views/dashboard/admin/all-em
 const CreatePost = Loadable(lazy(() => import("../views/dashboard/admin/create-post/CreatePost")));
 const MyProfile = Loadable(lazy(() => import("../views/dashboard/admin/profile/MyProfile")));
 const RequestStatus = Loadable(lazy(() => import("../views/dashboard/admin/request-approval/ApprovalStatus")));
+const OvertimeRequestStatus = Loadable(lazy(() => import("../views/dashboard/admin/overtime-requests/AllOvertimeRequests")));
 const EmployeeRequestStatus = Loadable(lazy(() => import("../views/dashboard/employee/request-status/RequestStatus")));
+const EmployeeOvertimeRequestStatus = Loadable(lazy(() => import("../views/dashboard/employee/overtime-status/OvertimeRequestStatus")));
+const HolidayListInfo = Loadable(lazy(() => import("../views/dashboard/employee/holiday-list/HolidayListInfo")));
 const Settings = Loadable(lazy(() => import("../views/dashboard/admin/setting/Setting"))); 
 const Leaves = Loadable(lazy(() => import("../views/dashboard/employee/leave/Leaves"))); 
+const Overtimes = Loadable(lazy(() => import("../views/dashboard/employee/request-overtime/RequestOvertime"))); 
 const AuthForgotPassword = Loadable(lazy(() => import("../views/auth/forgot-password/ForgotPassword"))); 
 
 // Authentication
@@ -67,16 +71,32 @@ export const router = createBrowserRouter([
           element: <RequestStatus/>
         },
         {
+          path: "/overtime-status",
+          element: <OvertimeRequestStatus/>
+        },
+        {
           path: "/request-status/employee",
           element: <EmployeeRequestStatus/>
+        },
+        {
+          path: "/request-overtime-status/employee",
+          element: <EmployeeOvertimeRequestStatus/>
         },
         {
           path: "/request-leave",
           element: <Leaves/>
         },
         {
+          path: "/request-overtime",
+          element: <Overtimes/>
+        },
+        {
           path: "/settings",
           element: <Settings/>
+        },
+        {
+          path: "/holiday-list",
+          element: <HolidayListInfo/>
         },
       ]
     },

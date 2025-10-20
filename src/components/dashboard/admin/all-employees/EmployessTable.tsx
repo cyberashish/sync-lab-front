@@ -8,6 +8,7 @@ import DeleteEmployee from "./DeleteEmployee"
 import { Button } from "@/components/ui/button"
 import { useAllEmployeesQuery } from "@/store/api/employeeApi"
 import TableSkeleton from "@/components/shared/skeleton/TableSkeleton"
+import EmployeeProfileDialog from "./employee-profile/EmployeeProfileDialog"
 
 export default function EmployeesTable({searchInput , salaryRange , activeDepartment}:{searchInput:string , salaryRange:string , activeDepartment:string}) {
     const[sorting , setSorting] = useState<SortingState>([]);
@@ -119,6 +120,8 @@ export default function EmployeesTable({searchInput , salaryRange , activeDepart
          <EditEmployee />
          {/* Delete Employee Dialog */}
          <DeleteEmployee/>
+         {/* Employee Profile Dialog */}
+         <EmployeeProfileDialog/>
       </>
     )
 }

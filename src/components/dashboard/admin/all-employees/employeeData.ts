@@ -12,6 +12,7 @@ export interface Employee {
   pf_number: string;
   salary: string;
   active: boolean;
+  allottedLeaves?: number;
   current_address: string;
   permanent_address: string;
   reportOffice?: string;

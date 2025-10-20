@@ -5,9 +5,7 @@ import { formatDate } from "@/lib/utils";
 import { useGetEmployeeMutation } from "@/store/api/employeeApi";
 import { useGetUserByTokenQuery } from "@/store/api/userApi";
 import { setSelectedEmployee } from "@/store/slices/employeeSlice";
-import { Edit3 } from "lucide-react";
 import { useEffect } from "react";
-import { Link } from "react-router";
 import employeeBg from "@/assets/images/background/employee.png";
 
 export default function EmployeeInformation() {
@@ -60,11 +58,6 @@ export default function EmployeeInformation() {
                 </p>
               </div>
             </div>
-            <Link to="/my-profile">
-              <button className="bg-white/20 cursor-pointer text-white p-2 rounded-full hover:bg-primary hover:text-white transition">
-                <Edit3 size={16} />
-              </button>
-            </Link>
           </div>
           <div className="px-5 py-4 relative">
              <div className="space-y-4 text-sm lg:col-span-7 col-span-12">

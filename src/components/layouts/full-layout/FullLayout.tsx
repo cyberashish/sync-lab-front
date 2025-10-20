@@ -8,6 +8,7 @@ import { setAuth, setAuthenticatedUser } from "@/store/slices/userModeSlice";
 import { Toaster } from "@/components/ui/sonner";
 
 
+
 export default function FullLayout(){
     const {data , isLoading} = useGetUserByTokenQuery("");
     console.log(data?.data,"testing");

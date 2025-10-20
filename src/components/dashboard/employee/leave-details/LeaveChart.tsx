@@ -12,10 +12,13 @@ export default function LeaveChart() {
   const [casualLeaves , setCasualLeaves] = useState(0);
   const [vacationLeaves , setVacationLeaves] = useState(0);
 
+    const theme = useAppSelector((state) => state.userMode.theme);
+
   const series = [sickLeaves ?? 0, casualLeaves ?? 0 , vacationLeaves ?? 0]
   const options:ApexOptions = {
     chart: {
       type: "donut",
+      foreColor: theme === "light" ? "var(--color-dark)" : "#adb0bb" , 
     },
     labels: ["Sick", "Casual" , "Vacation"],
     colors: ["var(--color-warning)", "var(--color-error)" , "var(--color-success)"], 
@@ -29,17 +32,17 @@ export default function LeaveChart() {
       plotOptions: {
         pie: {
           donut: {
-            size: "70%",
-            labels: {  
+            size: "75%",
+            labels: {
               show: true,
               total: {
                 show: true,
                 showAlways: false,
                 label: "Total",
-                fontSize: "16px",
+                fontSize: "19px",
                 fontFamily: "inherit",
                 fontWeight: 600,
-                color: "#373d3f",
+                color: theme === "light" ? "var(--color-dark)" : "#ffffff",
                 formatter: function (w) {
                   return w.globals.seriesTotals.reduce(
                     (a: number, b: number) => {
@@ -74,6 +77,8 @@ export default function LeaveChart() {
   },[employee])
  
   return (
-<Chart key={casualLeaves || sickLeaves || vacationLeaves} options={options} series={series} type="donut" width="100%" height="180px" />
+    <div key={theme}>
+  <Chart key={ casualLeaves || sickLeaves || vacationLeaves} options={options} series={series} type="donut" width="100%" height="180px" />
+    </div>
   );
 }

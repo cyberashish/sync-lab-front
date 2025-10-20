@@ -36,8 +36,16 @@ export const userApi = createApi({
           body:{email,password}
          }),
          invalidatesTags: ['User']
-       })
+       }),
+       getUserByEmail: builder.mutation({
+        query: ({email}) => ({
+            url: '/get-user/email',
+            method: 'POST',
+            body: {email}
+        }),
+        invalidatesTags: ['User'],
+       }),
     })
 })
 
-export const {useGetUserByTokenQuery , useLazyLogoutUserQuery , useRegisterUserMutation,useLoginUserMutation , useUpdateUserPasswordMutation} = userApi
+export const {useGetUserByTokenQuery , useLazyLogoutUserQuery , useRegisterUserMutation,useLoginUserMutation , useUpdateUserPasswordMutation , useGetUserByEmailMutation} = userApi

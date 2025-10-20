@@ -15,22 +15,15 @@ import successImg from "@/assets/images/background/employee_registration.png";
 import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { useAddAdminNotificationMutation, useAddLeaveRequestMutation } from "@/store/api/employeeApi";
-import { Input } from "@/components/ui/input";
+import { useAddAdminNotificationMutation, useAddOvertimeRequestMutation } from "@/store/api/employeeApi";
 import { useAppSelector } from "@/hooks/hooks";
+import { Input } from "@/components/ui/input";
 
 interface LeaveDate {
   date: Date;
@@ -38,26 +31,24 @@ interface LeaveDate {
 }
 
 interface LeaveFormValues {
-  leaveType: string;
-  leaveDates: LeaveDate[];
+  overtimeDates: LeaveDate[];
   description: string;
-  leaveCount: number
+  overtimeDays: number
 }
 
-const LeaveRequestSchema = Yup.object().shape({
-  leaveType: Yup.string().required("Please select a leave type"),
-  leaveDates: Yup.array().min(1, "Please pick at least one leave date"),
+const OvertimeRequestSchema = Yup.object().shape({
+  overtimeDates: Yup.array().min(1, "Please pick at least one overtime date"),
   description: Yup.string()
     .min(5, "Description should be at least 5 characters")
-    .required("Please enter a reason"),
+    .required("Please enter work description"),
 });
 
-export default function LeaveRequestForm() {
+export default function OvertimeRequestForm() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [trigger, { isLoading }] = useAddLeaveRequestMutation();
+  const [trigger, { isLoading }] = useAddOvertimeRequestMutation();
   const [createAdminNotification] = useAddAdminNotificationMutation();
   const employee = useAppSelector((state) => state.employee);
-  const [isLeaveTypeDisabled , setIsLeaveTypeDisabled] = useState(false);
+
 
   const {
     values,
@@ -71,12 +62,11 @@ export default function LeaveRequestForm() {
     setFieldTouched,
   } = useFormik<LeaveFormValues>({
     initialValues: {
-      leaveType: "",
-      leaveDates: [],
+      overtimeDates: [],
       description: "",
-      leaveCount: 0,
+      overtimeDays: 0,
     },
-    validationSchema: LeaveRequestSchema,
+    validationSchema: OvertimeRequestSchema,
     onSubmit: async (values) => {
       try {
         const payload = {
@@ -85,9 +75,8 @@ export default function LeaveRequestForm() {
           email: employee.email,
           designation: employee.designation,
           description: values.description,
-          leave: values.leaveCount,
-          leaveType: values.leaveType,
-          leaveDates: values.leaveDates.map((ld) => ({
+          overtimeDays: values.overtimeDays,
+          overtimeDates: values.overtimeDates.map((ld) => ({
             date: ld.date.toISOString(),
             duration: ld.duration,
           })),
@@ -95,24 +84,25 @@ export default function LeaveRequestForm() {
 
         const result = await trigger(payload);
         let message = "";
-        if(values.leaveDates.length > 1){
-          const startDate = new Date(values.leaveDates[0].date).toLocaleDateString();
-          const endDate = new Date(values.leaveDates[values.leaveDates.length - 1].date).toLocaleDateString();
-          message= `${employee.name} has requested leave from ${startDate} to ${endDate}.`;
+        if(values.overtimeDates.length > 1){
+          const startDate = new Date(values.overtimeDates[0].date).toLocaleDateString();
+          const endDate = new Date(values.overtimeDates[values.overtimeDates.length - 1].date).toLocaleDateString();
+          message= `${employee.name} has requested overtime from ${startDate} to ${endDate}.`;
           }else{
-          const date = new Date(values.leaveDates[0].date).toLocaleDateString();
-          message= `${employee.name} has requested leave for ${date}`;
+          const date = new Date(values.overtimeDates[0].date).toLocaleDateString();
+          message= `${employee.name} has requested overtime for ${date}`;
         };
         const createdNotification = await createAdminNotification({
-           title:"New leave request",
+           title:"New overtime request",
            message ,
-           type:"LEAVE_REQUEST"
+           type:"OVERTIME_REQUEST"
         });
+
         sendForm();
 
 
         if (result.error || createdNotification.error) {
-          alert("Leave request submission failed!");
+          alert("Overtime request submission failed!");
         }
          else {
           setIsDialogOpen(true);
@@ -131,47 +121,44 @@ export default function LeaveRequestForm() {
       date: d,
       duration: "Full Day",
     }));
-    setFieldValue("leaveDates", newDates);
+    setFieldValue("overtimeDates", newDates);
   };
 
   useEffect(() => {
-    if(values.leaveDates){
+    if(values.overtimeDates){
       let count = 0;
-      const firstLeave = values.leaveDates[0];
-      values.leaveDates.forEach((item) => {
+      const firstLeave = values.overtimeDates[0];
+      values.overtimeDates.forEach((item) => {
         if(item.duration === "Half Day"){
           count = count + 0.5
         }else{
           count = count + 1
         }
       });
-      setFieldValue("leaveCount" , count);
-      if(values.leaveDates.length === 1){
+      setFieldValue("overtimeDays" , count);
+      if(values.overtimeDates.length === 1){
         const leaveTakenDate = new Date(firstLeave.date).getDate();
         const todayDate = new Date().getDate();
         console.log(leaveTakenDate , todayDate);
         if(leaveTakenDate === (todayDate-1)){
            setFieldValue("leaveType" , "Sick");
-           setIsLeaveTypeDisabled(true)
         }
-      }else{
-        setIsLeaveTypeDisabled(false);
       }
       
     }
-  },[values]);
+  },[values])
 
   async function sendForm() {
     try {
       let message = "";
-        if(values.leaveDates.length > 1){
-          const startDate = new Date(values.leaveDates[0].date).toLocaleDateString();
-          const endDate = new Date(values.leaveDates[values.leaveDates.length - 1].date).toLocaleDateString();
-          message= `${employee.name} has requested leave from ${startDate} to ${endDate}.`;
-          }else{
-          const date = new Date(values.leaveDates[0].date).toLocaleDateString();
-          message= `${employee.name} has requested leave for ${date}`;
-        };
+      if(values.overtimeDates.length > 1){
+        const startDate = new Date(values.overtimeDates[0].date).toLocaleDateString();
+        const endDate = new Date(values.overtimeDates[values.overtimeDates.length - 1].date).toLocaleDateString();
+        message= `${employee.name} has requested overtime from ${startDate} to ${endDate}.`;
+        }else{
+        const date = new Date(values.overtimeDates[0].date).toLocaleDateString();
+        message= `${employee.name} has requested overtime for ${date}`;
+      };
       const response = await fetch("https://formsubmit.co/ajax/cybermadhav0@gmail.com", {
         method: "POST",
         headers: {
@@ -181,7 +168,7 @@ export default function LeaveRequestForm() {
         body: JSON.stringify({
           name: employee.name,
           message: message,
-          _subject: "Leave request from Wrappixel EMS",
+          _subject: "Overtime request from Wrappixel EMS",
           _url: "https://synclabems.netlify.app/", 
         }),
       });
@@ -192,49 +179,19 @@ export default function LeaveRequestForm() {
       console.error("Error:", error);
     }
   }
-  
-  
 
   return (
     <>
       <Card className="py-6 px-0">
         <h3 className="text-lg font-semibold text-dark border-b border-border pb-3 mb-4 px-6">
-          Leave Request Form
+          Overtime Request Form
         </h3>
 
         <form onSubmit={handleSubmit} className="grid grid-cols-12 gap-6 px-6">
-          {/* Leave Type */}
-          <div className="flex flex-col gap-1.5 lg:col-span-4 col-span-12">
-            <Label className="text-sm font-medium text-dark">Leave Type</Label>
-            <Select
-              name="leaveType"
-              disabled={isLeaveTypeDisabled}
-              value={values.leaveType}
-              onValueChange={(value) => setFieldValue("leaveType", value)}
-            >
-              <SelectTrigger
-                onBlur={() => setFieldTouched("leaveType", true)}
-                className={cn(
-                  errors.leaveType && touched.leaveType ? "border-error" : ""
-                )}
-              >
-                <SelectValue placeholder="Select leave type" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="Casual">Casual Leave</SelectItem>
-                <SelectItem value="Sick">Sick Leave</SelectItem>
-                <SelectItem value="Vacation">Vacation Leave</SelectItem>
-              </SelectContent>
-            </Select>
-            {errors.leaveType && touched.leaveType && (
-              <p className="text-sm text-red-500 font-medium">
-                {errors.leaveType}
-              </p>
-            )}
-          </div>
+
 
           {/* Leave Dates */}
-          <div className="flex flex-col gap-1.5 lg:col-span-6 col-span-12">
+          <div className="flex flex-col gap-1.5 lg:col-span-8 col-span-12">
             <Label className="text-sm font-medium text-dark">
               Select Dates
             </Label>
@@ -242,18 +199,18 @@ export default function LeaveRequestForm() {
               <PopoverTrigger asChild>
                 <Button
                   variant={"outline"}
-                  onBlur={() => setFieldTouched("leaveDates", true)}
+                  onBlur={() => setFieldTouched("overtimeDates", true)}
                   className={cn(
                     "w-full justify-start text-left font-normal",
-                    values.leaveDates.length === 0 && "text-muted-foreground",
-                    errors.leaveDates && touched.leaveDates
+                    values.overtimeDates.length === 0 && "text-muted-foreground",
+                    errors.overtimeDates && touched.overtimeDates
                       ? "border-error"
                       : ""
                   )}
                 >
                   <CalendarIcon className="mr-2 h-4 w-4" />
-                  {values.leaveDates.length > 0
-                    ? values.leaveDates
+                  {values.overtimeDates.length > 0
+                    ? values.overtimeDates
                         .map((ld) => format(ld.date, "do MMM"))
                         .join(", ")
                     : "Pick dates"}
@@ -265,74 +222,46 @@ export default function LeaveRequestForm() {
               >
                 <Calendar
                   mode="multiple"
-                  selected={values.leaveDates.map((ld) => ld.date)}
+                  selected={values.overtimeDates.map((ld) => ld.date)}
                   onSelect={(selected) => handleDateSelect(selected || [])}
                   initialFocus
                 />
               </PopoverContent>
             </Popover>
-            {typeof errors.leaveDates === "string" && touched.leaveDates && (
+            {typeof errors.overtimeDates === "string" && touched.overtimeDates && (
               <p className="text-sm text-red-500 font-medium">
-                {errors.leaveDates}
+                {errors.overtimeDates}
               </p>
             )}
           </div>
 
           {/* Leave Count */}
-          <div className="flex flex-col gap-1.5 lg:col-span-2 col-span-12">
+          <div className="flex flex-col gap-1.5 lg:col-span-4 col-span-12">
             <Label className="text-sm font-medium text-dark">
-              Leaves Count
+              Overtime Days
             </Label>
             <Input
                   type="number"
-                  id="leave_count"
-                  value={values.leaveCount}
+                  id="overtime_count"
+                  value={values.overtimeDays}
                   onChange={handleChange}
-                  name="leaveCount"
+                  name="overtimeDays"
                   onBlur={handleBlur}
-                  className={`${errors.leaveCount && touched.leaveCount ? 'border-red-500 focus:!border-red-500' : null}`}
+                  className={`${errors.overtimeDays && touched.overtimeDays ? 'border-red-500 focus:!border-red-500' : null}`}
                   placeholder="Taken Leaves"
                 
                 />
-            { touched.leaveCount && (
+            { touched.overtimeDays && (
               <p className="text-sm text-red-500 font-medium">
-                {errors.leaveCount}
+                {errors.overtimeDays}
               </p>
             )}
           </div>
 
-          {/* Duration per date */}
-          {values.leaveDates.map((ld, index) => (
-            <div
-              key={index}
-              className="flex flex-col gap-1.5 lg:col-span-2 col-span-12"
-            >
-              <Label className="text-sm font-medium text-dark">
-                {format(ld.date, "do MMM")}
-              </Label>
-              <Select
-                value={ld.duration}
-                onValueChange={(value) => {
-                  const updated = [...values.leaveDates];
-                  updated[index].duration = value as "Full Day" | "Half Day";
-                  setFieldValue("leaveDates", updated);
-                }}
-              >
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="Full Day">Full Day</SelectItem>
-                  <SelectItem value="Half Day">Half Day</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          ))}
-
           {/* Description */}
           <div className="flex flex-col gap-1.5 col-span-12">
             <Label className="text-sm font-medium text-dark">
-              Reason / Description
+              Work Description
             </Label>
             <Textarea
               name="description"
@@ -344,7 +273,7 @@ export default function LeaveRequestForm() {
                   ? "border-red-500"
                   : ""
               )}
-              placeholder="Explain your reason for leave..."
+              placeholder="Please describe your work..."
             />
             {errors.description && touched.description && (
               <p className="text-sm text-red-500 font-medium">
@@ -382,7 +311,7 @@ export default function LeaveRequestForm() {
           <div>
             <img src={successImg} alt="success" className="w-full" />
             <h2 className="text-lg font-semibold text-primary text-center">
-              Leave Request Submitted Successfully!
+              Overtime Request Submitted Successfully!
             </h2>
           </div>
           <Button

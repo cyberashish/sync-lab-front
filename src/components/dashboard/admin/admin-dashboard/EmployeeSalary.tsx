@@ -38,7 +38,7 @@ export default function EmployeeSalary(){
                   offsetX: 0,
                   offsetY: 0,
                   style: {
-                    color: '#373d3f',
+                    color: '#ffffff',
                     fontSize: '12px',
                     fontFamily: undefined,
                     fontWeight: 600
@@ -57,38 +57,44 @@ export default function EmployeeSalary(){
           },
           xaxis: {
             categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
-            labels:{
-                show:true,
+            labels: {
+                show: true,
                 style: {
-                  fontSize: '12px',
-                  fontFamily: 'inherit',
-                  fontWeight: 400,
-                  cssClass: 'apexcharts-xaxis-label',
-              },
+                    fontSize: '12px',
+                    fontFamily: 'inherit',
+                    fontWeight: 400,
+                    cssClass: 'apexcharts-xaxis-label',
+                    colors: `${theme === "light" ? 'var(--color-muted)' : '#ffffffab'}`
+                },
             },
             axisBorder: {
-              show: false
+                show: false
             },
             axisTicks: {
-              show: false
+                show: false
             }
-          },
-          yaxis: {
+        },
+        yaxis: {
             title: {
-              text: '$ (thousands)'
+                text: '$ (thousands)',
+                style: {
+                    color: `${theme === "light" ? 'var(--color-dark)' : '#ffffff'}` 
+                }
             },
             tickAmount: 8,
             min: 0,
             max: 80,
-            labels:{
-              style: {
-                fontSize: '12px',
-                fontFamily: 'inherit',
-                fontWeight: 400,
-                cssClass: 'apexcharts-xaxis-label',
-            },
+            labels: {
+                style: {
+                    fontSize: '12px',
+                    fontFamily: 'inherit',
+                    fontWeight: 400,
+                    cssClass: 'apexcharts-xaxis-label',
+                    colors: `${theme === "light" ? 'var(--color-muted)' : '#ffffffab'}` 
+                },
             }
-          },
+        },
+        
           fill: {
             opacity: 1
           },

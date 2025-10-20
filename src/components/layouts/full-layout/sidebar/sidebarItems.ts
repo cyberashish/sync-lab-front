@@ -38,13 +38,6 @@ const sidebarItems:sidebarItem[] = [
             },
             {
                 id: uuidv4(),
-                title:"Create Post",
-                icon:"solar:clapperboard-edit-broken",
-                url:"/create-post"
-            },
-
-            {
-                id: uuidv4(),
                 title:"My Profile",
                 icon:"solar:user-circle-outline",
                 url:"/my-profile"
@@ -57,16 +50,16 @@ const sidebarItems:sidebarItem[] = [
         children:[
             {
                 id: uuidv4(),
-                title:"Status",
+                title:"Leave Status",
                 icon:"solar:checklist-minimalistic-broken",
                 url:"/request-status"
             },
             {
                 id: uuidv4(),
-                title:"Settings",
-                icon:"solar:settings-linear",
-                url:"/settings"
-            },
+                title:"Overtime Status",
+                icon:"fluent-mdl2:sync-status",
+                url:"/overtime-status"
+            }
         ]
     }
 ]
@@ -89,9 +82,21 @@ const employeeSidebarItems:sidebarItem[] = [
             },
             {
                 id: uuidv4(),
+                title:"Request Overtime",
+                icon:"lsicon:overtime-outline",
+                url:"/request-overtime"
+            },
+            {
+                id: uuidv4(),
                 title:"My Profile",
                 icon:"solar:user-circle-outline",
                 url:"/my-profile"
+            },
+            {
+                id: uuidv4(),
+                title:"Holiday List",
+                icon:"fluent-mdl2:vacation",
+                url:"/holiday-list"
             },
         ]
     },
@@ -101,15 +106,15 @@ const employeeSidebarItems:sidebarItem[] = [
         children:[
             {
                 id: uuidv4(),
-                title:"Status",
+                title:"Leave Status",
                 icon:"solar:checklist-minimalistic-broken",
                 url:"/request-status/employee"
             },
             {
                 id: uuidv4(),
-                title:"Settings",
-                icon:"solar:settings-linear",
-                url:"/settings"
+                title:"Overtime Status",
+                icon:"fluent-mdl2:sync-status",
+                url:"/request-overtime-status/employee"
             },
         ]
     }

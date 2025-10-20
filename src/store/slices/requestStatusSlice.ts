@@ -5,12 +5,14 @@ const initialState:{
    requestStatusTableData : EmployeeRequestType[],
    isApproveDialogOpen: boolean,
    isDisapproveDialogOpen: boolean,
-   selectedRequest:null | EmployeeRequestType
+   selectedRequest:null | EmployeeRequestType,
+   selectedOvertimeRequest:null | EmployeeRequestType,
 } = {
     requestStatusTableData : EmployeeRequestData,
     isApproveDialogOpen: false,
     isDisapproveDialogOpen: false,
-    selectedRequest:null
+    selectedRequest:null,
+    selectedOvertimeRequest:null
 }
 
 const requestStatusSlice = createSlice({
@@ -28,9 +30,12 @@ const requestStatusSlice = createSlice({
        },
        setSelectedRequest: (state,action) => {
           state.selectedRequest = action.payload
+       },
+       setSelectedOvertimeRequest: (state,action) => {
+          state.selectedOvertimeRequest = action.payload
        }
     }
 });
 
-export const {transformStatusTableData , setApprovalDialog , setDisapprovalDialog , setSelectedRequest} = requestStatusSlice.actions;
+export const {transformStatusTableData , setApprovalDialog , setDisapprovalDialog , setSelectedRequest , setSelectedOvertimeRequest} = requestStatusSlice.actions;
 export const RequestStatusReducer = requestStatusSlice.reducer;

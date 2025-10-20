@@ -56,8 +56,7 @@ export default function EmployeeRegistration() {
     account_number:"",
     department:"",
     designation:"",
-    previous_company:"",
-    pf_number:"",
+    allottedLeaves:18,
     salary:"",
     current_address:"",
     permanent_address:"",
@@ -73,6 +72,7 @@ export default function EmployeeRegistration() {
       if(isEdit){
         // const {id , ...editableData} = values as any;
         // console.log(id,"Testing data");
+        // console.log(selectedEmployee)
        const updatedEmployee = await editEmployee(values);
         if(updatedEmployee.error){
             alert("Failed to edit employee!");
@@ -111,9 +111,6 @@ const [startDate, setStartDate] = useState<null | Date>(null);
         setFieldValue("employeeJoiningDate" , employeeJoiningDate);
       }
   },[employeeJoiningDate])
-
-  
-
 
   return (
     <>
@@ -406,7 +403,7 @@ const [startDate, setStartDate] = useState<null | Date>(null);
               {errors.department && touched.department ? <p className="text-sm text-red-500 font-medium" >{errors.department}</p> : null}
             </div>
             {/* Select Designation */}
-            <div className="flex flex-col gap-1.5 lg:col-span-6 col-span-12">
+            <div className="flex flex-col gap-1.5 lg:col-span-5 col-span-12">
               <Label
                 htmlFor="employee_designation"
                 className="text-dark font-medium text-sm"
@@ -454,55 +451,8 @@ const [startDate, setStartDate] = useState<null | Date>(null);
               </div>
               {errors.designation && touched.designation ? <p className="text-sm text-red-500 font-medium" >{errors.designation}</p> : null}
             </div>
-            {/* Previous Company */}
-            <div className="flex flex-col gap-1.5 lg:col-span-6 col-span-12">
-              <Label
-                htmlFor="employee_previous_company"
-                className="text-dark font-medium text-sm"
-              >
-                Previous Company
-              </Label>
-              <div>
-                <Input
-                  type="text"
-                  onBlur={handleBlur}
-                  id="employee_previous_company"
-                  value={values.previous_company} 
-                  onChange={handleChange}
-                  name="previous_company"
-                  className={`${errors.previous_company && touched.previous_company ? 'border-red-500 focus:!border-red-500' : null}`}
-                  placeholder="Enter previous company"
-                />
-              </div>
-              {errors.previous_company && touched.previous_company ? <p className="text-sm text-red-500 font-medium" >{errors.previous_company}</p> : null}
-            </div>
-            {/* PF Number */}
-            <div className="flex flex-col gap-1.5 lg:col-span-6 col-span-12">
-              <Label
-                htmlFor="pf_number"
-                className="text-dark font-medium text-sm"
-              >
-                PF Number
-              </Label>
-              <div>
-                <Input
-                  type="text"
-                  id="pf_number"
-                  onBlur={handleBlur}
-                  value={values.pf_number} 
-                  onChange={(e) => {
-                    const onlyDigits = e.target.value.replace(/\D/g , "")
-                    setFieldValue("pf_number" , onlyDigits )
-                  }}
-                  name="pf_number"
-                  className={`${errors.pf_number && touched.pf_number ? 'border-red-500 focus:!border-red-500' : null}`}
-                  placeholder="Enter PF number"
-                />
-              </div>
-              {errors.pf_number && touched.pf_number ? <p className="text-sm text-red-500 font-medium" >{errors.pf_number}</p> : null}
-            </div>
             {/* Salary*/}
-            <div className="flex flex-col gap-1.5 lg:col-span-6 col-span-12">
+            <div className="flex flex-col gap-1.5 lg:col-span-4 col-span-12">
               <Label
                 htmlFor="salary"
                 className="text-dark font-medium text-sm"
@@ -522,6 +472,31 @@ const [startDate, setStartDate] = useState<null | Date>(null);
                 />
               </div>
               {errors.salary && touched.salary ? <p className="text-sm text-red-500 font-medium" >{errors.salary}</p> : null}
+            </div>
+            {/* Allotted Leaves */}
+            <div className="flex flex-col gap-1.5 lg:col-span-3 col-span-12">
+              <Label
+                htmlFor="pf_number"
+                className="text-dark font-medium text-sm"
+              >
+                Allotted Leaves
+              </Label>
+              <div>
+                <Input
+                  type="text"
+                  id="pf_number"
+                  onBlur={handleBlur}
+                  value={values.allottedLeaves} 
+                  onChange={(e) => {
+                    const onlyDigits = e.target.value.replace(/\D/g , "")
+                    setFieldValue("allottedLeaves" , onlyDigits ? parseFloat(onlyDigits) : 0 );
+                  }}
+                  name="allottedLeaves"
+                  className={`${errors.allottedLeaves && touched.allottedLeaves ? 'border-red-500 focus:!border-red-500' : null}`}
+                  placeholder="Enter allotted leaves"
+                />
+              </div>
+              {errors.allottedLeaves && touched.allottedLeaves ? <p className="text-sm text-red-500 font-medium" >{errors.allottedLeaves}</p> : null}
             </div>
             {/* Current Address*/}
             <div className="flex flex-col gap-1.5 lg:col-span-6 col-span-12">

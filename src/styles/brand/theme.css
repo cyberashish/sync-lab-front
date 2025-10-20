@@ -62,7 +62,7 @@
   
   .dark {
     --shadow: 0px 2px 4px rgba(116, 116, 116, 0.20);
-    --background: oklch(0.15 0.02 165.91);
+    --background: oklch(0.28 0.05 280.97);
     --foreground: oklch(1 0 0 / 60%);
     --dark: oklch(1 0 0);
     --surface: oklch(1 0 0);
@@ -77,6 +77,6 @@
     --destructive: oklch(0.577 0.245 27.325);
     --border: oklch(1 0 0 / 10%);
     --input: oklch(0.922 0 0);
-    --black: oklch(0.1 0.0173 179.94);
-    --chart-stroke: oklch(0.1 0.0173 179.94);
+    --black: oklch(0.2196 0.0408 280.39);
+    --chart-stroke: oklch(0.2196 0.0408 280.39);
   }

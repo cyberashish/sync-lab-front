@@ -4,7 +4,7 @@ export const employeeApi = createApi({
     reducerPath: 'employeeApi',
     baseQuery: fetchBaseQuery({baseUrl: 'https://sync-lab-backend-cwqc.onrender.com' , credentials: 'include'}),
    //  baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:8080' , credentials: 'include'}),
-    tagTypes:["employees" , "requests" , "adminNotifications" , "employeeNotifications"],
+    tagTypes:["employees" , "requests" , "adminNotifications" , "employeeNotifications" , "overtime"],
     endpoints: (builder) => ({
        getEmployeeProfile: builder.query({
          query: ({id}) => ({
@@ -103,6 +103,14 @@ export const employeeApi = createApi({
          }),
          invalidatesTags:["employees"]
       }),
+      updateEmployeeOvertime: builder.mutation({
+         query: ({...data}) => ({
+            url:"/employee/update-employee-overtime",
+            method: "PUT",
+            body:{...data}
+         }),
+         invalidatesTags:["employees","overtime"]
+      }),
       updateAdminNotification: builder.mutation({
          query: ({...data}) => ({
             url:"/employee/update-notification/admin",
@@ -142,8 +150,43 @@ export const employeeApi = createApi({
             })
          },
          invalidatesTags:["requests"]
-      })
+      }),
+      updateEmployeeOvertimeRequest: builder.mutation({
+         query: ({...data}) => {
+            return ({
+               url: "/employee/update-overtime-request",
+               method: "PUT",
+               body:{...data}
+            })
+         },
+         invalidatesTags:["overtime"]
+      }),
+      getAllEmployeesOvertimeRequest: builder.query({
+         query: () => ({
+            url:"/employee/all-overtime-requests",
+            method: "GET"
+         }),
+         providesTags: ["overtime"]
+      }),
+      addOvertimeRequest: builder.mutation({
+         query: ({...data}) => {
+            return ({
+               url: "/employee/add-overtime-request",
+               method: "POST",
+               body: {...data}
+             })
+         },
+         invalidatesTags:["overtime"]
+      }),
+      getEmployeeOvertimeRequests: builder.mutation({
+         query: ({email}) => ({
+           url: "/employee/get-employee/overtime-requests",
+           method: "POST",
+           body: {email}
+         }),
+         invalidatesTags:["employees"]
+      }),
     })
 })
 
-export const {useGetEmployeeProfileQuery , useAllEmployeesQuery , useAddEmployeeMutation , useEditEmployeeMutation , useDeleteEmployeeMutation , useGetAllEmployeesRequestQuery , useUpdateEmployeeRequestMutation , useGetEmployeeMutation , useAddLeaveRequestMutation , useUpdateEmployeeLeaveMutation , useGetEmployeeRequestsMutation , useAddAdminNotificationMutation , useUpdateAdminNotificationMutation , useAllAdminNotificationsQuery , useAddEmployeeNotificationMutation , useUpdateEmployeeNotificationMutation , useLazyAllEmployeeNotificationsQuery } = employeeApi
+export const {useGetEmployeeProfileQuery , useAllEmployeesQuery , useAddEmployeeMutation , useEditEmployeeMutation , useDeleteEmployeeMutation , useGetAllEmployeesRequestQuery , useUpdateEmployeeRequestMutation , useGetEmployeeMutation , useAddLeaveRequestMutation , useUpdateEmployeeLeaveMutation , useGetEmployeeRequestsMutation , useAddAdminNotificationMutation , useUpdateAdminNotificationMutation , useAllAdminNotificationsQuery , useAddEmployeeNotificationMutation , useUpdateEmployeeNotificationMutation , useLazyAllEmployeeNotificationsQuery, useGetAllEmployeesOvertimeRequestQuery , useAddOvertimeRequestMutation , useUpdateEmployeeOvertimeRequestMutation , useGetEmployeeOvertimeRequestsMutation , useUpdateEmployeeOvertimeMutation } = employeeApi

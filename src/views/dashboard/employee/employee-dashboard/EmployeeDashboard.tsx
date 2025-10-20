@@ -1,4 +1,5 @@
 import EmployeeInformation from "@/components/dashboard/employee/employee-information/EmployeeInformation";
+import EmployeeMetric from "@/components/dashboard/employee/employee-metric-card/EmployeeMetrics";
 import LeaveDetails from "@/components/dashboard/employee/leave-details/LeaveDetails";
 
 export default function EmployeeDashboard(){
@@ -6,6 +7,9 @@ export default function EmployeeDashboard(){
      return (
          <>
             <div className="grid grid-cols-12 gap-6">
+                <div className="col-span-12">
+                    <EmployeeMetric/>
+                </div>
                 <div className="lg:col-span-6 col-span-12">
                     <EmployeeInformation/>
                 </div>

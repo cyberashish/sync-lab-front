@@ -5,6 +5,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { useAppDispatch } from "@/hooks/hooks";
 import { setDeletEmployeeDialog, setEditEmployeeDialog } from "@/store/slices/employeeTableSlice";
 import { setSelectedEmployee } from "@/store/slices/employeeSlice";
+import { EmployeeProfileAction } from "./employee-profile/EmployeeProfileAction";
 
 const TableActions = (selectedEmployee:Employee) => {
 
@@ -49,8 +50,9 @@ export const Employee_Columns:ColumnDef<Employee>[] = [
   {
     accessorKey: 'employeeId',
     header: "Id",
-    cell : ({row}) => {
-     return <p className="text-primary" >{row.getValue("employeeId")}</p>
+    cell: ({row}) => {
+      const selectedEmployee = row.original;
+      return EmployeeProfileAction(selectedEmployee)
     }
   },
   {
@@ -117,22 +119,6 @@ export const Employee_Columns:ColumnDef<Employee>[] = [
   {
     accessorKey: 'designation',
     header: "Designation"
-  },
-  {
-    accessorKey: 'previous_company',
-    header: "Previous Company"
-  },
-  {
-    accessorKey: 'pf_number',
-    header: ({column}) => {
-      return <button onClick={() => column.toggleSorting(column.getIsSorted() === "asc")} className="flex group cursor-pointer hover:text-primary items-center gap-1">
-         <span>PF Number</span>
-         <Icon icon="mi:sort" width={20} height={20} className="text-muted group-hover:text-primary" />
-      </button>
-    },
-    sortingFn: (rowA,rowB) => {
-      return Number(rowA.original.pf_number) - Number(rowB.original.pf_number)
-    }
   },
   {
     accessorKey: 'salary',

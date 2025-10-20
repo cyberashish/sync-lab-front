@@ -93,7 +93,7 @@ export default function RequestDetails(){
         <>
         <Card className="p-0">
             <div className="p-6 border-b border-border flex items-center lg:flex-nowrap gap-2 flex-wrap justify-between">
-                <h5  className="text-lg font-semibold leading-none text-dark">Request Status</h5>
+                <h5  className="text-lg font-semibold leading-none text-dark">Leave Request Status</h5>
                 <div
             className={`flex items-center border rounded-md px-3 flex-1 max-w-80 ${
               state.isSearchFocussed ? "border-primary " : "border-border"

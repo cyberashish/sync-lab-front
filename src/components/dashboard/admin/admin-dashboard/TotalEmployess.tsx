@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/card";
 import { useAllEmployeesQuery } from "@/store/api/employeeApi";
 import { useEffect, useState } from "react";
 import { ChartSkeleton } from "@/components/shared/skeleton/ChartSkeleton";
+import { useAppSelector } from "@/hooks/hooks";
 
 // const initialState = {
 //   engineers: 0,
@@ -46,6 +47,7 @@ export default function TotalEmployess() {
   const departments = ["Engineering" , "Design" , "Quality Assurance" , "Sales"];
   const [employeesBasedOnDepartments , setEmployeesBasedOnDepartments] = useState<any[]>([]);
   const [employeesStrengthByDepartment , setEmployeesStrengthByDepartment] = useState<any[]>([]);
+  const theme = useAppSelector((state) => state.userMode.theme);
 
   const designations = [
     {
@@ -147,9 +149,9 @@ export default function TotalEmployess() {
                 showAlways: false,
                 label: "Total",
                 fontSize: "19px",
-                fontFamily: "Helvetica, Arial, sans-serif",
+                fontFamily: "inherit",
                 fontWeight: 600,
-                color: "#373d3f",
+                color: theme === "light" ? "var(--color-dark)" : "#ffffff",
                 formatter: function (w) {
                   return w.globals.seriesTotals.reduce(
                     (a: number, b: number) => {
