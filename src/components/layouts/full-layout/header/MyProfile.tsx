@@ -13,8 +13,8 @@ export default function MyProfile() {
 
   async function handleLogout(){
     await trigger(undefined); // Optional: can await for data
-    // window.location.href="https://synclabems.netlify.app/"
-    window.location.href="http://localhost:5173/"
+    window.location.href="https://synclabems.netlify.app/"
+    // window.location.href="http://localhost:5173/"
   }
   useEffect(() => {
     if(data.data){
