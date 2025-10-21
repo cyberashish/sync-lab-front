@@ -70,10 +70,10 @@ export default function AllEmployees() {
           <h3 className="text-lg font-semibold text-dark leading-none">
             All Employess Information
           </h3>
-          <div className="flex items-center gap-3">
+          <div className="lg:flex block items-center gap-3">
           <Dialog>
             <DialogTrigger asChild >
-              <button className="py-2 px-3 flex items-center gap-2 rounded-md bg-gray-100 dark:bg-white/5 hover:bg-primary hover:text-white cursor-pointer text-dark text-sm font-medium">
+              <button className="py-2 px-3  flex items-center gap-2 rounded-md bg-gray-100 dark:bg-white/5 hover:bg-primary hover:text-white cursor-pointer text-dark text-sm font-medium">
                 <Icon icon="cuida:filter-outline" width={20} height={20} />
                 Sort & Filter
               </button>
@@ -125,7 +125,7 @@ export default function AllEmployees() {
             </DialogContent>
           </Dialog>
           <div
-            className={`flex items-center border rounded-md px-3 flex-1 max-w-80 ${
+            className={`lg:mt-0 mt-2 flex items-center border rounded-md px-3 flex-1 max-w-80 ${
               state.isSearchFocussed ? "border-primary " : "border-border"
             }`}
           >

@@ -69,7 +69,7 @@ export default function LeaveChart() {
 
   useEffect(() => {
     if(employee){
-      console.log(employee , "Employee Leave");
+      // console.log(employee , "Employee Leave");
        setSickLeaves(employee.sickLeaves);
        setCasualLeaves(employee.casualLeaves);
        setVacationLeaves(employee.vacationLeaves);

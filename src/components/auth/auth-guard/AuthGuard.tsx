@@ -17,7 +17,7 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
         navigate("/auth/login")
       }
      }
-     console.log(data,"new Data")
+
   }, [error,data]);
 
   return <>{!isLoading ? children : <BasicLoader />}</>;

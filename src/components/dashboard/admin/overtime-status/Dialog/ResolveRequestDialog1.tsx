@@ -18,7 +18,7 @@ export default function DisapproveRequestDialog(){
     const [updateEmployeeOvertime] = useUpdateEmployeeOvertimeMutation();
  
     const handleRequest = async () => {
-              console.log(selectedRequest);
+              // console.log(selectedRequest);
               await updateRequest({id:selectedRequest.id, requestStatus: "Approved" , isRequestApproved: true});
               await updateEmployeeOvertime({email: selectedRequest?.email , overtime: selectedRequest?.overtimeDays})
               dispatch(setApprovalDialog(false));

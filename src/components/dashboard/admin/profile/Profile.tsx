@@ -12,7 +12,7 @@ export default function Profile(){
   useEffect(() => {
     if(employees && User){
       const employee = employees.data.find((item:any) => item.email === User.data.email);
-      console.log(employee)
+      // console.log(employee)
       setEmployee(employee);
     }
   },[employees , User])
@@ -35,15 +35,15 @@ export default function Profile(){
             <div className="lg:col-span-12 col-span-12 rounded-xl">
                 <h2 className="font-semibold mb-1 text-lg text-primary" >Professional Info</h2>
                  <div className="flex flex-col gap-1.5">
-                 <div className="flex items-center gap-2">
+                 <div className="flex items-center gap-2 flex-wrap">
                 <h5 className="text-base font-semibold">Designation:</h5>
                 <p className="text-sm font-medium text-muted">{employee.designation}</p>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 flex-wrap">
                 <h5 className="text-base font-semibold">Joining Date:</h5>
                 <p className="text-sm font-medium text-muted">{new Date(employee.employeeJoiningDate).toDateString()}</p>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 flex-wrap">
                 <h5 className="text-base font-semibold">Department:</h5>
                 <p className="text-sm font-medium text-muted">{employee.department}</p>
               </div>
@@ -52,15 +52,15 @@ export default function Profile(){
             <div className="lg:col-span-12 col-span-12 rounded-xl">
                 <h2 className="font-semibold mb-1 text-lg text-primary" >Personal Info</h2>
                  <div className="flex flex-col gap-1.5">
-                 <div className="flex items-center gap-2">
+                 <div className="flex items-center gap-2 flex-wrap">
                 <h5 className="text-base font-semibold">Gender:</h5>
                 <p className="text-sm font-medium text-muted">{employee.gender}</p>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 flex-wrap">
                 <h5 className="text-base font-semibold">DOB:</h5>
                 <p className="text-sm font-medium text-muted">{new Date(employee.employeeDOBDate).toDateString()}</p>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 flex-wrap">
                 <h5 className="text-base font-semibold whitespace-nowrap">Permanent Address:</h5>
                 <p className="text-sm font-medium text-muted">{employee.permanent_address}</p>
               </div>

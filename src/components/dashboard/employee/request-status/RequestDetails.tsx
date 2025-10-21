@@ -65,7 +65,7 @@ export default function RequestDetails(){
 
     async function handleRequest(email:string){
        const result = await getEmployeeRequestInfo({email});
-       console.log(result.data.data.requests,"my request data");
+    //    console.log(result.data.data.requests,"my request data");
        setData(result.data.data.requests);
     }
 
@@ -95,7 +95,7 @@ export default function RequestDetails(){
             <div className="p-6 border-b border-border flex items-center lg:flex-nowrap gap-2 flex-wrap justify-between">
                 <h5  className="text-lg font-semibold leading-none text-dark">Leave Request Status</h5>
                 <div
-            className={`flex items-center border rounded-md px-3 flex-1 max-w-80 ${
+            className={`flex items-center border rounded-md px-3 flex-1 max-w-80 min-w-40 ${
               state.isSearchFocussed ? "border-primary " : "border-border"
             }`}
           >

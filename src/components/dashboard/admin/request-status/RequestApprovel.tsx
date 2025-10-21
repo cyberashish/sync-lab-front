@@ -59,7 +59,7 @@ export default function RequestApproval(){
     useEffect(() => {
         if(data){
             setEmployeeRequestData(data.data);
-            console.log(data.data)
+            // console.log(data.data)
         }
     },[data])
 
@@ -79,10 +79,10 @@ export default function RequestApproval(){
 
        const employee:any = useAppSelector((state) => state.employee);
        const [updateEmployeeLeave] = useEditEmployeeMutation();
-       const selectedRequest:any = useAppSelector((state) => state.requestStatus.selectedRequest);
+    //    const selectedRequest:any = useAppSelector((state) => state.requestStatus.selectedRequest);
 
     async function handleTest(){
-        console.log(selectedRequest, "my data");
+        // console.log(selectedRequest, "my data");
 
         await updateEmployeeLeave({email: employee.email , totalLeaves:  employee.totalLeaves , casualLeaves: employee.casualLeaves})
     }
@@ -93,7 +93,7 @@ export default function RequestApproval(){
             <div className="p-6 border-b border-border flex items-center lg:flex-nowrap gap-2 flex-wrap justify-between">
                 <h5 onClick={handleTest} className="text-lg font-semibold leading-none text-dark">Leave Request Status</h5>
                 <div
-            className={`flex items-center border rounded-md px-3 flex-1 max-w-80 ${
+            className={`flex items-center border rounded-md min-w-40 px-3 flex-1 max-w-80 ${
               state.isSearchFocussed ? "border-primary " : "border-border"
             }`}
           >

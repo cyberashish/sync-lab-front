@@ -59,7 +59,6 @@ export default function OvertimeRequestApproval(){
     useEffect(() => {
         if(data){
             setEmployeeRequestData(data.data);
-            console.log(data.data)
         }
     },[data])
 
@@ -79,10 +78,9 @@ export default function OvertimeRequestApproval(){
 
        const employee:any = useAppSelector((state) => state.employee);
        const [updateEmployeeLeave] = useEditEmployeeMutation();
-       const selectedRequest:any = useAppSelector((state) => state.requestStatus.selectedRequest);
+    //    const selectedRequest:any = useAppSelector((state) => state.requestStatus.selectedRequest);
 
     async function handleTest(){
-        console.log(selectedRequest, "my data");
 
         await updateEmployeeLeave({email: employee.email , totalLeaves:  employee.totalLeaves , casualLeaves: employee.casualLeaves})
     }

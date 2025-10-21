@@ -18,7 +18,6 @@ export default function EmployeeProfileDialog(){
     async function handleUser(email:string){
       try{
         const result = await getUserByEmail({email});
-        console.log(result,"User");
         dispatch(setEmployeeProfileImg(result.data.data.image));
       }catch(error){
         console.log("Failed to get user by email" , error)

@@ -149,7 +149,7 @@ export default function LeaveRequestForm() {
       if(values.leaveDates.length === 1){
         const leaveTakenDate = new Date(firstLeave.date).getDate();
         const todayDate = new Date().getDate();
-        console.log(leaveTakenDate , todayDate);
+        // console.log(leaveTakenDate , todayDate);
         if(leaveTakenDate === (todayDate-1)){
            setFieldValue("leaveType" , "Sick");
            setIsLeaveTypeDisabled(true)

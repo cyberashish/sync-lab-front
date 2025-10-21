@@ -17,7 +17,7 @@ export default function EmployeeInformation() {
 
   async function handleGetEmployee(email: string) {
     const employeeData = await trigger({ email: email });
-    console.log(employeeData, "Employee");
+    // console.log(employeeData, "Employee");
     dispatch(setSelectedEmployee(employeeData.data.data));
   }
 
@@ -82,7 +82,7 @@ export default function EmployeeInformation() {
               </p>
             </div>
              </div>
-             <img src={employeeBg} alt="employee_image" className="absolute -top-6 end-6 lg:w-5/12" />
+             <img src={employeeBg} alt="employee_image" className="absolute lg:block hidden -top-6 end-6 lg:w-5/12" />
           </div>
         </div>
       </Card>

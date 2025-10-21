@@ -23,7 +23,6 @@ export default function EmployeesTable({searchInput , salaryRange , activeDepart
       return employeeInfo
   },[employeeInfo]);
 
-  console.log(EmployeesData,"data")
 
   useEffect(() => {
     if(EmployeesData){

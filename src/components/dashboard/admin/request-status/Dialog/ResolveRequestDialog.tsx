@@ -16,8 +16,8 @@ export default function ResolveRequestDialog(){
     const [updateRequest , {isLoading}] = useUpdateEmployeeRequestMutation();
 
     const handleRequest = async () => {
-      const result = await updateRequest({id:selectedRequest?.id ,requestStatus: "Disapproved" , isRequestApproved: false });
-      console.log(result);
+       await updateRequest({id:selectedRequest?.id ,requestStatus: "Disapproved" , isRequestApproved: false });
+      // console.log(result);
        dispatch(setDisapprovalDialog(false));
        await addEmployeeNotification({email:selectedRequest?.email , title : "Leave Disapproved" , message:"Your leave has been disapproved!" , type:"LEAVE_REQUEST"})
     }

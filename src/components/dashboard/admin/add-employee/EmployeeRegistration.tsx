@@ -70,9 +70,6 @@ export default function EmployeeRegistration() {
     validationSchema: EmployeeRegistrationSchema,
     onSubmit: async (values) => {
       if(isEdit){
-        // const {id , ...editableData} = values as any;
-        // console.log(id,"Testing data");
-        // console.log(selectedEmployee)
        const updatedEmployee = await editEmployee(values);
         if(updatedEmployee.error){
             alert("Failed to edit employee!");

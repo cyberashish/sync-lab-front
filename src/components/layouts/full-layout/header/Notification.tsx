@@ -110,7 +110,7 @@ export default function Notification() {
           >
             <DropdownMenuLabel className="text-lg p-3 font-medium flex items-center justify-between">
               Notifications
-              <Badge className="text-white" >5 New</Badge>
+              <Badge className="text-white" > {allNotifications.length} New</Badge>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             {

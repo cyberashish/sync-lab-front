@@ -11,7 +11,7 @@ import { Toaster } from "@/components/ui/sonner";
 
 export default function FullLayout(){
     const {data , isLoading} = useGetUserByTokenQuery("");
-    console.log(data?.data,"testing");
+    // console.log(data?.data,"testing");
     const dispatch = useAppDispatch();
     // const navigate = useNavigate();
 

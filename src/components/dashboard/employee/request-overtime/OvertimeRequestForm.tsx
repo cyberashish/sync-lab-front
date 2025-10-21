@@ -139,7 +139,7 @@ export default function OvertimeRequestForm() {
       if(values.overtimeDates.length === 1){
         const leaveTakenDate = new Date(firstLeave.date).getDate();
         const todayDate = new Date().getDate();
-        console.log(leaveTakenDate , todayDate);
+        // console.log(leaveTakenDate , todayDate);
         if(leaveTakenDate === (todayDate-1)){
            setFieldValue("leaveType" , "Sick");
         }
@@ -173,8 +173,8 @@ export default function OvertimeRequestForm() {
         }),
       });
   
-      const data = await response.json();
-      console.log("Success:", data);
+       await response.json();
+      // console.log("Success:", data);
     } catch (error) {
       console.error("Error:", error);
     }
