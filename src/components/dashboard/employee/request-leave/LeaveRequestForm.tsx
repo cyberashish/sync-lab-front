@@ -183,6 +183,7 @@ export default function LeaveRequestForm() {
           message: message,
           _subject: "Leave request from Wrappixel EMS",
           _url: "https://synclabems.netlify.app/", 
+          _cc: "cyberashish321@gmail.com , niravjoshi87@gmail.com",
         }),
       });
   

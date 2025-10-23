@@ -13,6 +13,12 @@ export interface Employee {
   salary: string;
   active: boolean;
   allottedLeaves?: number;
+  totalLeaves?: number;
+  sickLeaves?: number;
+  bondType?: string;
+  casualLeaves?: number;
+  vacationLeaves?: number;
+  overtimeDays?: number;
   current_address: string;
   permanent_address: string;
   reportOffice?: string;

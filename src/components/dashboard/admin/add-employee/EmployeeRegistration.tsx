@@ -56,6 +56,7 @@ export default function EmployeeRegistration() {
     account_number:"",
     department:"",
     designation:"",
+    bondType:"",
     allottedLeaves:18,
     salary:"",
     current_address:"",
@@ -348,7 +349,7 @@ const [startDate, setStartDate] = useState<null | Date>(null);
               {errors.aadhaar_number && touched.aadhaar_number ? <p className="text-sm text-red-500 font-medium" >{errors.aadhaar_number}</p> : null}
             </div>
              {/* Account Number */}
-            <div className="flex flex-col gap-1.5 lg:col-span-6 col-span-12">
+            <div className="flex flex-col gap-1.5 lg:col-span-5 col-span-12">
               <Label
                 htmlFor="employee_account_number"
                 className="text-dark font-medium text-sm"
@@ -373,7 +374,7 @@ const [startDate, setStartDate] = useState<null | Date>(null);
               {errors.account_number && touched.account_number ? <p className="text-sm text-red-500 font-medium" >{errors.account_number}</p> : null}
             </div>
               {/* Select Department */}
-            <div className="flex flex-col gap-1.5 lg:col-span-6 col-span-12">
+            <div className="flex flex-col gap-1.5 lg:col-span-4 col-span-12">
               <Label
                 htmlFor="employee_department"
                 className="text-dark font-medium text-sm"
@@ -398,6 +399,32 @@ const [startDate, setStartDate] = useState<null | Date>(null);
                 </Select>
               </div>
               {errors.department && touched.department ? <p className="text-sm text-red-500 font-medium" >{errors.department}</p> : null}
+            </div>
+              {/* Select Bond Type */}
+            <div className="flex flex-col gap-1.5 lg:col-span-3 col-span-12">
+              <Label
+                htmlFor="employee_bond"
+                className="text-dark font-medium text-sm"
+              >
+                Select Bond Type
+              </Label>
+              <div>
+                <Select defaultValue="Degree Certificate" name="bondType" value={values.bondType} onValueChange={(value) => setFieldValue("bondType" , value)} >
+                  <SelectTrigger onBlur={() => setFieldTouched("bondType" , true)} className={`w-full ${errors.bondType && touched.bondType ? 'border-red-500 focus:!border-red-500' : null}`}>
+                    <SelectValue placeholder="Select bondType" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectItem value="Degree Certificate">Degree Certificate</SelectItem>
+                      <SelectItem value="Cheque">Cheque</SelectItem>
+                      <SelectItem value="Other">
+                        Other
+                      </SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </div>
+              {errors.bondType && touched.bondType ? <p className="text-sm text-red-500 font-medium" >{errors.bondType}</p> : null}
             </div>
             {/* Select Designation */}
             <div className="flex flex-col gap-1.5 lg:col-span-5 col-span-12">

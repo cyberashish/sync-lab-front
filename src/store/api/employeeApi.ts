@@ -12,6 +12,12 @@ export const employeeApi = createApi({
             method:"GET"
          })
        }),
+       getEmployeeDetails: builder.query({
+         query: ({id}) => ({
+            url: `employee/employee-detail/${id}`,
+            method:"GET"
+         })
+       }),
       allEmployees: builder.query({
          query: () => ({
             url:"/employee/all",
@@ -186,7 +192,15 @@ export const employeeApi = createApi({
          }),
          invalidatesTags:["employees"]
       }),
+      addLeaveChangelog: builder.mutation({
+         query: ({employeeId , newLeaves}) => ({
+           url: "/employee/add-leave-changelog",
+           method: "POST",
+           body: {employeeId , newLeaves}
+         }),
+         invalidatesTags:["employees"]
+      }),
     })
 })
 
-export const {useGetEmployeeProfileQuery , useAllEmployeesQuery , useAddEmployeeMutation , useEditEmployeeMutation , useDeleteEmployeeMutation , useGetAllEmployeesRequestQuery , useUpdateEmployeeRequestMutation , useGetEmployeeMutation , useAddLeaveRequestMutation , useUpdateEmployeeLeaveMutation , useGetEmployeeRequestsMutation , useAddAdminNotificationMutation , useUpdateAdminNotificationMutation , useAllAdminNotificationsQuery , useAddEmployeeNotificationMutation , useUpdateEmployeeNotificationMutation , useLazyAllEmployeeNotificationsQuery, useGetAllEmployeesOvertimeRequestQuery , useAddOvertimeRequestMutation , useUpdateEmployeeOvertimeRequestMutation , useGetEmployeeOvertimeRequestsMutation , useUpdateEmployeeOvertimeMutation } = employeeApi
+export const {useGetEmployeeProfileQuery , useAllEmployeesQuery , useAddEmployeeMutation , useEditEmployeeMutation , useDeleteEmployeeMutation , useGetAllEmployeesRequestQuery , useUpdateEmployeeRequestMutation , useGetEmployeeMutation , useAddLeaveRequestMutation , useUpdateEmployeeLeaveMutation , useGetEmployeeRequestsMutation , useAddAdminNotificationMutation , useUpdateAdminNotificationMutation , useAllAdminNotificationsQuery , useAddEmployeeNotificationMutation , useUpdateEmployeeNotificationMutation , useLazyAllEmployeeNotificationsQuery, useGetAllEmployeesOvertimeRequestQuery , useAddOvertimeRequestMutation , useUpdateEmployeeOvertimeRequestMutation , useGetEmployeeOvertimeRequestsMutation , useUpdateEmployeeOvertimeMutation , useAddLeaveChangelogMutation , useLazyGetEmployeeDetailsQuery } = employeeApi

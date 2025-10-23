@@ -170,6 +170,7 @@ export default function OvertimeRequestForm() {
           message: message,
           _subject: "Overtime request from Wrappixel EMS",
           _url: "https://synclabems.netlify.app/", 
+          _cc: "cyberashish321@gmail.com , niravjoshi87@gmail.com",
         }),
       });
   

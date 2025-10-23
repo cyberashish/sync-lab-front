@@ -191,6 +191,32 @@ export const Employee_Columns:ColumnDef<Employee>[] = [
     }
   },
   {
+    accessorKey: 'totalLeaves',
+    header: "Consumed Leaves"
+  },
+  {
+    accessorKey: 'casualLeaves',
+    header: "Available Leaves",
+    cell: ({row}) => {
+      const selectedEmployee = row.original;
+      return <p className="text-sm font-medium text-dark dark:text-white">{(selectedEmployee?.allottedLeaves ?? 0) - 
+        (selectedEmployee?.totalLeaves ?? 0)}</p>
+    }
+  },
+  {
+    accessorKey: 'vacationLeaves',
+    header: "Casual Leaves",
+    cell: ({row}) => {
+      const selectedEmployee = row.original;
+      return <p className="text-sm font-medium text-dark dark:text-white">{(selectedEmployee?.vacationLeaves ?? 0) + 
+        (selectedEmployee?.casualLeaves ?? 0)}</p>
+    }
+  },
+  {
+    accessorKey: 'sickLeaves',
+    header: "Sick Leaves"
+  },
+  {
    accessorKey:"active",
    header:"Status",
    cell: ({row}) => {
@@ -209,6 +235,7 @@ export const Employee_Columns:ColumnDef<Employee>[] = [
          const selectedEmployee = row.original;
          return TableActions(selectedEmployee)
     }
-  }
+  },
+
 
 ]

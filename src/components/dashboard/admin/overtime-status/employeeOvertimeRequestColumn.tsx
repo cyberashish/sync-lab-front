@@ -63,6 +63,10 @@ export const EmployeeOvertimeRequestColumn:ColumnDef<EmployeeRequestType>[] = [
         },
     },
     {
+        accessorKey: "overtimeDays",
+        header: "Days",
+    },
+    {
         accessorKey: "requestStatus",
         header: "Status",
         cell: ({row}) => {

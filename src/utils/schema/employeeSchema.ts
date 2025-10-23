@@ -10,6 +10,7 @@ export const EmployeeRegistrationSchema = Yup.object({
     .matches(/^\d{9,18}$/, "Account number must be between 9 and 18 digits")
     .required("Please provide a valid account number"),
     department:Yup.string().required("Please provide valid department"),
+    bondType:Yup.string().required("Please provide valid bond"),
     designation:Yup.string().required("Please provide valid designation"),
     salary:Yup.string().required("Please provide salary number"),
     current_address:Yup.string().min(5).required("Please provide current address"),

@@ -116,6 +116,12 @@ const employeeSidebarItems:sidebarItem[] = [
                 icon:"fluent-mdl2:sync-status",
                 url:"/request-overtime-status/employee"
             },
+            {
+                id: uuidv4(),
+                title:"Leave History",
+                icon:"lucide:history",
+                url:"/leave-history"
+            },
         ]
     }
 ]
