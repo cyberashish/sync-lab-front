@@ -142,7 +142,7 @@ export default function EmployeeMetric({isFull=false}:any) {
      }
   },[activeYear])
   return (
-    <div className="flex flex-col gap-0 items-center p-6">
+    <div className={`flex flex-col gap-4 items-center p-6 ${isFull ? 'p-6 pt-0' : 'p-6'}`}>
          <div className="flex items-center gap-1 rounded-md p-1 bg-gray-200 dark:bg-white/20">
             {
               timelines.map((item,index) => <button onClick={() => setActiveYear(item)} key={index} className={`py-2 px-3 rounded-md text-sm font-medium text-dark cursor-pointer ${activeYear === item ? 'bg-primary text-white' : 'bg-white dark:bg-black dark:text-white'}`}>Year {item}</button>)
