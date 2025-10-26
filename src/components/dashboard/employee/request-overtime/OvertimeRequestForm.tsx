@@ -151,14 +151,16 @@ export default function OvertimeRequestForm() {
   async function sendForm() {
     try {
       let message = "";
-      if(values.overtimeDates.length > 1){
+  
+      if (values.overtimeDates.length > 1) {
         const startDate = new Date(values.overtimeDates[0].date).toLocaleDateString();
         const endDate = new Date(values.overtimeDates[values.overtimeDates.length - 1].date).toLocaleDateString();
-        message= `${employee.name} has requested overtime from ${startDate} to ${endDate}.`;
-        }else{
+        message = `${employee.name} has requested overtime from ${startDate} to ${endDate}.`;
+      } else {
         const date = new Date(values.overtimeDates[0].date).toLocaleDateString();
-        message= `${employee.name} has requested overtime for ${date}`;
-      };
+        message = `${employee.name} has requested overtime for ${date}.`;
+      }
+  
       const response = await fetch("https://formsubmit.co/ajax/cybermadhav0@gmail.com", {
         method: "POST",
         headers: {
@@ -169,17 +171,24 @@ export default function OvertimeRequestForm() {
           name: employee.name,
           message: message,
           _subject: "Overtime request from Wrappixel EMS",
-          _url: "https://synclabems.netlify.app/", 
-          _cc: "cyberashish321@gmail.com , niravjoshi87@gmail.com",
+          _cc: "cyberashish321@gmail.com,niravjoshi87@gmail.com", // ✅ no spaces
+          _template: "table", // ✅ optional but improves email format
         }),
       });
   
-       await response.json();
-      // console.log("Success:", data);
+      const data = await response.json();
+  
+      if (response.ok) {
+        console.log("✅ Overtime request sent successfully:", data);
+      } else {
+        console.error("❌ Failed to send overtime request:", data);
+      }
+  
     } catch (error) {
-      console.error("Error:", error);
+      console.error("🚨 Error sending overtime request:", error);
     }
   }
+  
 
   return (
     <>

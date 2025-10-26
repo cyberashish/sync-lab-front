@@ -164,14 +164,16 @@ export default function LeaveRequestForm() {
   async function sendForm() {
     try {
       let message = "";
-        if(values.leaveDates.length > 1){
-          const startDate = new Date(values.leaveDates[0].date).toLocaleDateString();
-          const endDate = new Date(values.leaveDates[values.leaveDates.length - 1].date).toLocaleDateString();
-          message= `${employee.name} has requested leave from ${startDate} to ${endDate}.`;
-          }else{
-          const date = new Date(values.leaveDates[0].date).toLocaleDateString();
-          message= `${employee.name} has requested leave for ${date}`;
-        };
+  
+      if (values.leaveDates.length > 1) {
+        const startDate = new Date(values.leaveDates[0].date).toLocaleDateString();
+        const endDate = new Date(values.leaveDates[values.leaveDates.length - 1].date).toLocaleDateString();
+        message = `${employee.name} has requested leave from ${startDate} to ${endDate}.`;
+      } else {
+        const date = new Date(values.leaveDates[0].date).toLocaleDateString();
+        message = `${employee.name} has requested leave for ${date}.`;
+      }
+  
       const response = await fetch("https://formsubmit.co/ajax/cybermadhav0@gmail.com", {
         method: "POST",
         headers: {
@@ -182,8 +184,8 @@ export default function LeaveRequestForm() {
           name: employee.name,
           message: message,
           _subject: "Leave request from Wrappixel EMS",
-          _url: "https://synclabems.netlify.app/", 
-          _cc: "cyberashish321@gmail.com , niravjoshi87@gmail.com",
+          _cc: "cyberashish321@gmail.com,niravjoshi87@gmail.com",
+          _template: "table", 
         }),
       });
   
@@ -193,6 +195,7 @@ export default function LeaveRequestForm() {
       console.error("Error:", error);
     }
   }
+  
   
   
 
