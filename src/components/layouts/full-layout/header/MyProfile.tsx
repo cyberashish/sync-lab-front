@@ -3,11 +3,11 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { Link } from "react-router";
 import { Button } from "@/components/ui/button";
-import { useGetUserByTokenQuery, useLazyLogoutUserQuery } from "@/store/api/userApi";
+import { useGetUserByTokenQuery } from "@/store/api/userApi";
 import { useEffect, useState } from "react";
 
 export default function MyProfile() {
-  const [trigger] = useLazyLogoutUserQuery();
+  // const [trigger] = useLazyLogoutUserQuery();
   const [authenticatedUser , setAuthenticatedUser] = useState<any>();
   const {data} = useGetUserByTokenQuery(undefined);
 
@@ -36,7 +36,8 @@ export default function MyProfile() {
   
 
   async function handleLogout(){
-    await trigger(undefined); // Optional: can await for data
+    // await trigger(undefined); // Optional: can await for data
+    console.log("I cleared");
     deleteAllCookies();
     // window.location.href="https://synclabems.netlify.app/"
     // window.location.href="http://localhost:5173/"
