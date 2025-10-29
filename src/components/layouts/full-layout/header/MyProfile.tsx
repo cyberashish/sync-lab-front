@@ -38,7 +38,7 @@ export default function MyProfile() {
   async function handleLogout(){
     await trigger(undefined); // Optional: can await for data
     deleteAllCookies();
-    window.location.href="https://synclabems.netlify.app/"
+    // window.location.href="https://synclabems.netlify.app/"
     // window.location.href="http://localhost:5173/"
   }
   useEffect(() => {
