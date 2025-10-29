@@ -16,6 +16,7 @@ export interface Employee {
   totalLeaves?: number;
   sickLeaves?: number;
   bondType?: string;
+  imageUrl?: string;
   casualLeaves?: number;
   vacationLeaves?: number;
   overtimeDays?: number;

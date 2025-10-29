@@ -9,7 +9,6 @@ import { useGetUserByEmailMutation } from "@/store/api/userApi";
 
 export default function EmployeeProfileDialog(){
     const isDialogOpen = useAppSelector((state) => state.employeeTable.isProfileDialogOpen);
-    const employeeProfileImg = useAppSelector((state) => state.employeeTable.employeeProfileImg);
     const dispatch = useAppDispatch();
     const employee = useAppSelector((state) => state.employee);
     // const [employeeProfileImg , setEmployeeProfileImg] = useState<any>(null);
@@ -45,7 +44,7 @@ export default function EmployeeProfileDialog(){
         phone={employee.mobile_number ?? '9129856783'}
         location={employee.current_address}
         joiningDate={new Date(employee.employeeJoiningDate).toDateString()}
-        avatarUrl={employeeProfileImg}
+        avatarUrl={employee.imageUrl}
         isLoading={isLoading}
       />
         </DialogContent>

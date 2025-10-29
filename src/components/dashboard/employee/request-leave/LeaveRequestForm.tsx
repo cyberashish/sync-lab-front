@@ -31,6 +31,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useAddAdminNotificationMutation, useAddLeaveRequestMutation } from "@/store/api/employeeApi";
 import { Input } from "@/components/ui/input";
 import { useAppSelector } from "@/hooks/hooks";
+import { useSendLeaveRequestEmailMutation } from "@/store/api/userApi";
 
 interface LeaveDate {
   date: Date;
@@ -196,7 +197,11 @@ export default function LeaveRequestForm() {
     }
   }
   
-  
+  const [sendLeaveRequestEmail] = useSendLeaveRequestEmailMutation();
+
+  async function handleTestEmail(){
+      await sendLeaveRequestEmail({name:"Ashish" , message:"I am requesting for 2 days leave" , _subject:"Leave Request"})
+  }
   
 
   return (
@@ -372,9 +377,11 @@ export default function LeaveRequestForm() {
                 "Submit Request"
               )}
             </Button>
+         
           </div>
         </form>
       </Card>
+      <Button onClick={handleTestEmail} >Test Email</Button>
 
       {/* Success Dialog */}
       <Dialog

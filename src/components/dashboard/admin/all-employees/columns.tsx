@@ -63,6 +63,15 @@ export const Employee_Columns:ColumnDef<Employee>[] = [
          <Icon icon="mi:sort" width={20} height={20} className="text-muted group-hover:text-primary" />
       </button>
     },
+    cell: ({row}) => {
+      const selectedEmployee = row.original;
+      return (
+        <div className="flex items-center gap-2">
+          {selectedEmployee.imageUrl ? <img src={selectedEmployee.imageUrl} className="size-8 rounded-full shrink-0" /> : <span className="size-8 flex items-center shrink-0 rounded-full justify-center font-medium bg-primary/10 text-primary">{selectedEmployee.name.charAt(0).toLocaleUpperCase()}</span>}
+           <span className="text-sm font-medium text-dark dark:text-white" >{selectedEmployee.name}</span>
+        </div>
+      )
+    }
   },
   {
     accessorKey: 'gender',
@@ -92,86 +101,86 @@ export const Employee_Columns:ColumnDef<Employee>[] = [
       return Number(rowA.original.aadhaar_number) - Number(rowB.original.aadhaar_number)
     }
   },
-  {
-    accessorKey: 'account_number',
-    header: ({column}) => {
-      return <button onClick={() => column.toggleSorting(column.getIsSorted() === "asc")} className="flex group cursor-pointer hover:text-primary items-center gap-1">
-         <span>Account Number</span>
-         <Icon icon="mi:sort" width={20} height={20} className="text-muted group-hover:text-primary" />
-      </button>
-    },
-    sortingFn: (rowA,rowB) => {
-      return Number(rowA.original.account_number) - Number(rowB.original.account_number)
-    }
-  },
-  {
-    accessorKey: 'department',
-    header: "Department",
-    filterFn: (row , _columnId , filterValue) => {
-        const department = row.getValue("department");
-        if(filterValue !== "all"){
-          return department === filterValue
-        }else{
-          return true
-        }
-    }
-  },
+  // {
+  //   accessorKey: 'account_number',
+  //   header: ({column}) => {
+  //     return <button onClick={() => column.toggleSorting(column.getIsSorted() === "asc")} className="flex group cursor-pointer hover:text-primary items-center gap-1">
+  //        <span>Account Number</span>
+  //        <Icon icon="mi:sort" width={20} height={20} className="text-muted group-hover:text-primary" />
+  //     </button>
+  //   },
+  //   sortingFn: (rowA,rowB) => {
+  //     return Number(rowA.original.account_number) - Number(rowB.original.account_number)
+  //   }
+  // },
+  // {
+  //   accessorKey: 'department',
+  //   header: "Department",
+  //   filterFn: (row , _columnId , filterValue) => {
+  //       const department = row.getValue("department");
+  //       if(filterValue !== "all"){
+  //         return department === filterValue
+  //       }else{
+  //         return true
+  //       }
+  //   }
+  // },
   {
     accessorKey: 'designation',
     header: "Designation"
   },
-  {
-    accessorKey: 'salary',
-    header: ({column}) => {
-      return <button onClick={() => column.toggleSorting(column.getIsSorted() === "asc")} className="flex group cursor-pointer hover:text-primary items-center gap-1">
-         <span>Salary</span>
-         <Icon icon="mi:sort" width={20} height={20} className="text-muted group-hover:text-primary" />
-      </button>
-    },
-    sortingFn: (rowA,rowB) => {
-      return Number(rowA.original.salary) - Number(rowB.original.salary)
-    },
-    filterFn: (row, _columnId, filterValue) => {
-       const salary = Number(row.original.salary);
-       if(filterValue !== "all"){
-        const startRange = Number(filterValue.split("-")[0]);
-       const endRange = Number(filterValue.split("-")[1]);
-       if(salary >= (startRange*1000) && salary <= (endRange*1000)){
-        return true
-       }else{
-        return false
-       }
-       }else{
-        return true
-       }
-    }
-  },
-  {
-    accessorKey: 'current_address',
-    header: "Current Address"
-  },
-  {
-    accessorKey: 'permanent_address',
-    header: "Permanent Address"
-  },
-  {
-    accessorKey: 'employeeDOBDate',
-    header: ({column}) => {
-      return <button onClick={() => column.toggleSorting(column.getIsSorted() === "asc")} className="flex group cursor-pointer hover:text-primary items-center gap-1">
-         <span>DOB</span>
-         <Icon icon="mi:sort" width={20} height={20} className="text-muted group-hover:text-primary" />
-      </button>
-    },
-    cell: ({row}) => {
-      return <>{ (new Date(row.getValue("employeeDOBDate")).toLocaleDateString())}</>
-    },
-    sortingFn: (rowA , rowB) => {
-      const dateA = new Date(rowA.original.employeeDOBDate);
-      const dateB = new Date(rowB.original.employeeDOBDate);
+  // {
+  //   accessorKey: 'salary',
+  //   header: ({column}) => {
+  //     return <button onClick={() => column.toggleSorting(column.getIsSorted() === "asc")} className="flex group cursor-pointer hover:text-primary items-center gap-1">
+  //        <span>Salary</span>
+  //        <Icon icon="mi:sort" width={20} height={20} className="text-muted group-hover:text-primary" />
+  //     </button>
+  //   },
+  //   sortingFn: (rowA,rowB) => {
+  //     return Number(rowA.original.salary) - Number(rowB.original.salary)
+  //   },
+  //   filterFn: (row, _columnId, filterValue) => {
+  //      const salary = Number(row.original.salary);
+  //      if(filterValue !== "all"){
+  //       const startRange = Number(filterValue.split("-")[0]);
+  //      const endRange = Number(filterValue.split("-")[1]);
+  //      if(salary >= (startRange*1000) && salary <= (endRange*1000)){
+  //       return true
+  //      }else{
+  //       return false
+  //      }
+  //      }else{
+  //       return true
+  //      }
+  //   }
+  // },
+  // {
+  //   accessorKey: 'current_address',
+  //   header: "Current Address"
+  // },
+  // {
+  //   accessorKey: 'permanent_address',
+  //   header: "Permanent Address"
+  // },
+  // {
+  //   accessorKey: 'employeeDOBDate',
+  //   header: ({column}) => {
+  //     return <button onClick={() => column.toggleSorting(column.getIsSorted() === "asc")} className="flex group cursor-pointer hover:text-primary items-center gap-1">
+  //        <span>DOB</span>
+  //        <Icon icon="mi:sort" width={20} height={20} className="text-muted group-hover:text-primary" />
+  //     </button>
+  //   },
+  //   cell: ({row}) => {
+  //     return <>{ (new Date(row.getValue("employeeDOBDate")).toLocaleDateString())}</>
+  //   },
+  //   sortingFn: (rowA , rowB) => {
+  //     const dateA = new Date(rowA.original.employeeDOBDate);
+  //     const dateB = new Date(rowB.original.employeeDOBDate);
 
-    return dateA.getTime() - dateB.getTime(); 
-    }
-  },
+  //   return dateA.getTime() - dateB.getTime(); 
+  //   }
+  // },
   {
     accessorKey: 'employeeJoiningDate',
     header: ({column}) => {

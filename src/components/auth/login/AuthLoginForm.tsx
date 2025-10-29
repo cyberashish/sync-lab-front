@@ -49,7 +49,8 @@ export default function AuthLoginForm(){
 
     function handleGoogleLogin(){
       setLoading(true);
-      window.open(`https://sync-lab-backend-cwqc.onrender.com/auth/google` , '_self')
+      // window.open(`https://sync-lab-backend-cwqc.onrender.com/auth/google` , '_self')
+      window.open(`https://sync-lab-express-backend.vercel.app/auth/google` , '_self')
       // window.open(`http://localhost:8080/auth/google` , '_self')
     }
 
@@ -83,8 +84,8 @@ export default function AuthLoginForm(){
               Sign In
               </Button>
         </div>
-
-         <div className="relative my-3 mb-2">
+    
+         <div className="relative my-6">
          <hr className="border-border" />
           <span className="p-2 rounded-full text-muted absolute start-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-background">signup or login with</span>
          </div>

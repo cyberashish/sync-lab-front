@@ -33,12 +33,14 @@ import { useAppDispatch, useAppSelector } from "@/hooks/hooks";
 import { setEditEmployeeDialog } from "@/store/slices/employeeTableSlice";
 import { useAddEmployeeMutation, useEditEmployeeMutation } from "@/store/api/employeeApi";
 import { Checkbox } from "@/components/ui/checkbox";
+import ImageUpload from "../all-employees/ImageUpload";
 
 
 
 export default function EmployeeRegistration() {
   const [employeeJoiningDate, setEmployeeJoiningDate] = useState<Date>();
   const [isDialogOpen , setIsDialogOpen] = useState(false);
+  const [url, setUrl] = useState<string | null>(null);
   const selectedEmployee = useAppSelector((state) => state.employee);
   const isEdit = useAppSelector((state) => state.employeeTable.isEditDialogOpen);
   // const allEmployees = useAppSelector((state) => state.employeeTable.employees);
@@ -57,6 +59,7 @@ export default function EmployeeRegistration() {
     department:"",
     designation:"",
     bondType:"",
+    imageUrl:"",
     allottedLeaves:18,
     salary:"",
     current_address:"",
@@ -65,6 +68,12 @@ export default function EmployeeRegistration() {
     employeeJoiningDate:"",
     active:true
   }
+
+  useEffect(() => {
+      if(isEdit && selectedEmployee){
+        setUrl(selectedEmployee.imageUrl! as string);
+      }
+  },[selectedEmployee])
  
   const {values , handleChange , handleSubmit , setFieldValue , errors , touched , handleBlur , setFieldTouched , resetForm} = useFormik({
     initialValues ,
@@ -93,6 +102,7 @@ export default function EmployeeRegistration() {
         }
       }
       resetForm();
+      setUrl("");
     }
   });
 
@@ -108,7 +118,13 @@ const [startDate, setStartDate] = useState<null | Date>(null);
       if(employeeJoiningDate){
         setFieldValue("employeeJoiningDate" , employeeJoiningDate);
       }
-  },[employeeJoiningDate])
+  },[employeeJoiningDate]);
+
+  useEffect(() => {
+    if(url){
+      setFieldValue("imageUrl" , url)
+    }
+  },[url])
 
   return (
     <>
@@ -550,6 +566,17 @@ const [startDate, setStartDate] = useState<null | Date>(null);
               </div>
               {errors.permanent_address && touched.permanent_address ? <p className="text-sm text-red-500 font-medium" >{errors.permanent_address}</p> : null}
             </div>
+            {/* Upload Employee Image */}
+            <div className="flex flex-col gap-1.5 lg:col-span-6 col-span-12">
+              <Label
+                htmlFor="Permanent Address"
+                className="text-dark font-medium text-sm"
+              >
+                Upload Image
+              </Label>
+              <ImageUpload url={url} setUrl={setUrl}/>
+              {errors.imageUrl && touched.imageUrl ? <p className="text-sm text-red-500 font-medium" >{errors.imageUrl}</p> : null}
+            </div>            
             <div className="col-span-12">
               <div className="w-full flex justify-center ">
               <Button disabled={isLoading || isEditEmployeeLoading} className="lg:w-2/12 w-full" type="submit" >

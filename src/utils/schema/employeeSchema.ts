@@ -11,6 +11,7 @@ export const EmployeeRegistrationSchema = Yup.object({
     .required("Please provide a valid account number"),
     department:Yup.string().required("Please provide valid department"),
     bondType:Yup.string().required("Please provide valid bond"),
+    imageUrl:Yup.string().required("Please provide image Url"),
     designation:Yup.string().required("Please provide valid designation"),
     salary:Yup.string().required("Please provide salary number"),
     current_address:Yup.string().min(5).required("Please provide current address"),

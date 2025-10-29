@@ -4,33 +4,61 @@ import { Button } from "@/components/ui/button";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import {v4 as uuidv4} from "uuid";
 import { useAppSelector } from "@/hooks/hooks";
+import { useGetAllEmployeesOvertimeRequestQuery, useGetAllEmployeesRequestQuery } from "@/store/api/employeeApi";
+import { useEffect, useState } from "react";
+import { Link } from "react-router";
 
 export default function UserBanner(){
 
    const userInfo = useAppSelector((state) => state.userMode.userInfo);
-
+   const {data:LeaveRequests} = useGetAllEmployeesRequestQuery(undefined);
+   const {data:OvertimeRequests} = useGetAllEmployeesOvertimeRequestQuery(undefined);
+   const [pendingApprovals, setPendingApprovals] = useState(0);
+   const [approvedApprovals, setApprovedApprovals] = useState(0);
+   const [disApprovedApprovals, setDisApprovedApprovals] = useState(0);
+   const [totalRequests , setTotalRequests] = useState(0);
     const tasks = [
         {
           id: uuidv4(),
-          title: "12 pending approvals",
+          title: `${pendingApprovals} pending approvals`,
           icon: "solar:card-search-linear",
         },
         {
           id: uuidv4(),
-          title: "8 high-priority reviews",
+          title: `${pendingApprovals} high-priority reviews`,
           icon: "bi:lightning-charge",
         },
         {
           id: uuidv4(),
-          title: "5 interviews scheduled",
+          title: `${approvedApprovals} requests approved`,
           icon: "solar:calendar-broken",
         },
         {
           id: uuidv4(),
-          title: "Yesterday: 38 reviewed, 5 rejected",
+          title: `${totalRequests} reviewed, ${disApprovedApprovals} rejected`,
           icon: "solar:chart-2-broken",
         },
     ]
+
+    useEffect(() => {
+      if(LeaveRequests && OvertimeRequests){
+         const pendingLeaveRequests = LeaveRequests.data.filter((item:any) => item.requestStatus === "pending");
+         const pendingOvertimeRequests = OvertimeRequests.data.filter((item:any) => item.requestStatus === "pending");
+
+         const approvedLeaveRequests = LeaveRequests.data.filter((item:any) => item.requestStatus === "Approved");
+         const approvedOvertimeRequests = OvertimeRequests.data.filter((item:any) => item.requestStatus === "Approved");
+
+         const disApprovedLeaveRequests = LeaveRequests.data.filter((item:any) => item.requestStatus === "Disapproved");
+         const disApprovedOvertimeRequests = OvertimeRequests.data.filter((item:any) => item.requestStatus === "Disapproved");
+
+         setPendingApprovals(pendingLeaveRequests.length + pendingOvertimeRequests.length);
+         setApprovedApprovals(approvedLeaveRequests.length + approvedOvertimeRequests.length);
+         setDisApprovedApprovals(disApprovedLeaveRequests.length + disApprovedOvertimeRequests.length);
+         setTotalRequests(LeaveRequests.data.length + OvertimeRequests.data.length);
+
+         console.log(LeaveRequests , OvertimeRequests)
+      }
+    },[LeaveRequests , OvertimeRequests])
 
     return (
         <Card className="p-0" >
@@ -53,7 +81,7 @@ export default function UserBanner(){
                     ))
                  }
                 </div>
-                <Button>Review it</Button>
+                <Link to="/overtime-status" className="w-full" ><Button className="w-full" >Review it</Button></Link>
              </div>
         </Card>
     )
