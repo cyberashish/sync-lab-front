@@ -1,15 +1,34 @@
 "use client";
 
 import { Card } from "@/components/ui/card";
+// import { Button } from "@/components/ui/button";
 import { useAllHolidaysQuery } from "@/store/api/employeeApi";
 import { CalendarDays, Loader2 } from "lucide-react";
 import { format } from "date-fns";
-
+// import { useState } from "react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Icon } from "@iconify/react/dist/iconify.js";
+import { useState } from "react";
+import DeleteHolidayDialog from "./DeleteHolidayDialog";
 
 export default function HolidayList() {
   const { data: holidayInfo, isLoading, isError } = useAllHolidaysQuery(undefined);
+  // const [deleteHoliday] = useDeleteHolidayMutation();
+  const [isDialogOpen , setIsDialogOpen] = useState(false);
+  const [selectedHoliday , setSelectedHoliday] = useState<any>(null);
+  // const [deletingId, setDeletingId] = useState<string | null>(null);
 
-
+  // async function handleDelete(id: string) {
+  //   if (confirm("Are you sure you want to delete this holiday?")) {
+  //     try {
+  //       await deleteHoliday({ id });
+  //       await refetch();
+  //     } catch (error) {
+  //       console.error("Error deleting holiday:", error);
+  //       alert("Failed to delete holiday!");
+  //     }
+  //   }
+  // }
 
   if (isLoading) {
     return (
@@ -74,12 +93,31 @@ export default function HolidayList() {
                   >
                     {holiday.type}
                   </span>
+{/* Delete icon with Tooltip */}
+
+
+  <TooltipProvider>
+    <Tooltip>
+      <TooltipTrigger  asChild>
+      <button onClick={() => {
+        setIsDialogOpen(true);
+        setSelectedHoliday(holiday);
+      }} >
+      <Icon icon="solar:trash-bin-trash-broken" width={22} height={24} className="text-red-500 hover:text-red-400 cursor-pointer" />
+      </button>
+      </TooltipTrigger>
+      <TooltipContent className="bg-red-500 fill-red-500" >
+        <p>Delete Holiday</p>
+      </TooltipContent>
+    </Tooltip>
+  </TooltipProvider>
                 </div>
               </li>
             );
           })}
         </ul>
       </Card>
+      <DeleteHolidayDialog isDialogOpen={isDialogOpen} setIsDialogOpen={setIsDialogOpen} selectedHoliday={selectedHoliday} />
     </div>
 
   );

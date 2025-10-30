@@ -13,7 +13,7 @@ export default function AllDepartments(){
       id: uuidv4(),
       icon: "solar:laptop-broken",
       employees: 9,
-      department: "Engineering",
+      department: "Developers",
       bgColor: 'bg-purple/10',
       color: 'text-purple'
     },

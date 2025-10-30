@@ -23,11 +23,11 @@ export default function UserBanner(){
           title: `${pendingApprovals} pending approvals`,
           icon: "solar:card-search-linear",
         },
-        {
-          id: uuidv4(),
-          title: `${pendingApprovals} high-priority reviews`,
-          icon: "bi:lightning-charge",
-        },
+      //   {
+      //     id: uuidv4(),
+      //     title: `${pendingApprovals} high-priority reviews`,
+      //     icon: "bi:lightning-charge",
+      //   },
         {
           id: uuidv4(),
           title: `${approvedApprovals} requests approved`,

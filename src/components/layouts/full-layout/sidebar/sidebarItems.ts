@@ -59,7 +59,19 @@ const sidebarItems:sidebarItem[] = [
                 title:"Overtime Status",
                 icon:"fluent-mdl2:sync-status",
                 url:"/overtime-status"
-            }
+            },
+            {
+                id: uuidv4(),
+                title:"Add Holiday",
+                icon:"fluent-mdl2:vacation",
+                url:"/add-holiday"
+            },
+            {
+                id: uuidv4(),
+                title:"Holiday List",
+                icon:"material-symbols-light:holiday-village-outline-rounded",
+                url:"/admin/holiday-list"
+            },
         ]
     }
 ]
@@ -98,6 +110,7 @@ const employeeSidebarItems:sidebarItem[] = [
                 icon:"fluent-mdl2:vacation",
                 url:"/holiday-list"
             },
+
         ]
     },
     {

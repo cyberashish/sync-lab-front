@@ -94,7 +94,7 @@ export default function AllEmployees() {
                   <SelectContent>
                   <SelectGroup>
                       <SelectItem value="all">All</SelectItem>
-                      <SelectItem value="Engineering">Engineering</SelectItem>
+                      <SelectItem value="Developers">Developers</SelectItem>
                       <SelectItem value="Design">Design</SelectItem>
                       <SelectItem value="Quality Assurance">
                         Quality Assurance (QA)

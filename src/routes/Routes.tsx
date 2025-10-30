@@ -22,7 +22,9 @@ const OvertimeRequestStatus = Loadable(lazy(() => import("../views/dashboard/adm
 const EmployeeRequestStatus = Loadable(lazy(() => import("../views/dashboard/employee/request-status/RequestStatus")));
 const EmployeeOvertimeRequestStatus = Loadable(lazy(() => import("../views/dashboard/employee/overtime-status/OvertimeRequestStatus")));
 const HolidayListInfo = Loadable(lazy(() => import("../views/dashboard/employee/holiday-list/HolidayListInfo")));
+const AdminHolidayListInfo = Loadable(lazy(() => import("../views/dashboard/admin/holiday-list/HolidayListInfo")));
 const Settings = Loadable(lazy(() => import("../views/dashboard/admin/setting/Setting"))); 
+const AddHoliday = Loadable(lazy(() => import("../views/dashboard/admin/add-holiday/AddHoliday"))); 
 const Leaves = Loadable(lazy(() => import("../views/dashboard/employee/leave/Leaves"))); 
 const LeaveHistory = Loadable(lazy(() => import("../views/dashboard/employee/leave-history/LeaveHistory"))); 
 const Overtimes = Loadable(lazy(() => import("../views/dashboard/employee/request-overtime/RequestOvertime"))); 
@@ -100,8 +102,16 @@ export const router = createBrowserRouter([
           element: <HolidayListInfo/>
         },
         {
+          path: "/admin/holiday-list",
+          element: <AdminHolidayListInfo/>
+        },
+        {
           path: "/leave-history",
           element: <LeaveHistory/>
+        },
+        {
+          path: "/add-holiday",
+          element: <AddHoliday/>
         },
       ]
     },

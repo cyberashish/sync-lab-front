@@ -50,7 +50,7 @@ export default function AuthLoginForm(){
     function handleGoogleLogin(){
       setLoading(true);
       // window.open(`https://sync-lab-backend-cwqc.onrender.com/auth/google` , '_self')
-      window.open(`https://sync-lab-express-backend.vercel.app/user/auth/google` , '_self')
+      window.open(`https://sync-lab-express-backend.vercel.app/auth/google` , '_self')
       // window.open(`http://localhost:8080/auth/google` , '_self')
     }
 

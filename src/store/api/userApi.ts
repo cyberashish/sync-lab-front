@@ -2,21 +2,21 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const userApi = createApi({
     reducerPath: 'userApi',
-    // baseQuery: fetchBaseQuery({baseUrl: 'https://sync-lab-backend-cwqc.onrender.com' , credentials: 'include'}),
-    baseQuery: fetchBaseQuery({baseUrl: 'https://sync-lab-express-backend.vercel.app/' , credentials: 'include'}),
+    baseQuery: fetchBaseQuery({baseUrl: 'https://sync-lab-backend-cwqc.onrender.com' , credentials: 'include'}),
+    // baseQuery: fetchBaseQuery({baseUrl: 'https://sync-lab-express-backend.vercel.app/' , credentials: 'include'}),
     // baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:8080' , credentials: 'include'}),
     tagTypes: ['User'],
     endpoints: (builder) => ({
        getUserByToken: builder.query({
-        query: () => '/user/token/get-user',
+        query: () => '/token/get-user',
         providesTags: ['User'],
        }),
        logoutUser: builder.query({
-        query: () => '/user/logout'
+        query: () => '/logout'
        }),
        registerUser: builder.mutation({
         query: ({fullname , email , password}) => ({
-            url: '/user/register',
+            url: '/register',
             method: 'POST',
             body: {fullname,email,password}
         }),
@@ -24,7 +24,7 @@ export const userApi = createApi({
        }),
        loginUser: builder.mutation({
          query: ({email,password}) => ({
-          url: "/user/login",
+          url: "/login",
           method: "POST",
           body: {email,password} 
          }),
@@ -32,7 +32,7 @@ export const userApi = createApi({
        }),
        sendLeaveRequestEmail: builder.mutation({
          query: ({name,message,_subject}) => ({
-          url: "/user/leave-request-email",
+          url: "/leave-request-email",
           method: "POST",
           body: {name,message,_subject}
          }),
@@ -48,7 +48,7 @@ export const userApi = createApi({
        }),
        getUserByEmail: builder.mutation({
         query: ({email}) => ({
-            url: '/user/get-user/email',
+            url: '/get-user/email',
             method: 'POST',
             body: {email}
         }),

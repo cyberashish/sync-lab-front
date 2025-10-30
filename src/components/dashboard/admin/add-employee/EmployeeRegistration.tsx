@@ -398,13 +398,13 @@ const [startDate, setStartDate] = useState<null | Date>(null);
                 Select Department
               </Label>
               <div>
-                <Select defaultValue="Engineering" name="department" value={values.department} onValueChange={(value) => setFieldValue("department" , value)} >
+                <Select defaultValue="Developers" name="department" value={values.department} onValueChange={(value) => setFieldValue("department" , value)} >
                   <SelectTrigger onBlur={() => setFieldTouched("department" , true)} className={`w-full ${errors.department && touched.department ? 'border-red-500 focus:!border-red-500' : null}`}>
                     <SelectValue placeholder="Select department" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
-                      <SelectItem value="Engineering">Engineering</SelectItem>
+                      <SelectItem value="Developers">Developers</SelectItem>
                       <SelectItem value="Design">Design</SelectItem>
                       <SelectItem value="Quality Assurance">
                         Quality Assurance (QA)

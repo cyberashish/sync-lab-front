@@ -2,10 +2,10 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const employeeApi = createApi({
     reducerPath: 'employeeApi',
-   //  baseQuery: fetchBaseQuery({baseUrl: 'https://sync-lab-backend-cwqc.onrender.com' , credentials: 'include'}),
-    baseQuery: fetchBaseQuery({baseUrl: 'https://sync-lab-express-backend.vercel.app/' , credentials: 'include'}),
+    baseQuery: fetchBaseQuery({baseUrl: 'https://sync-lab-backend-cwqc.onrender.com' , credentials: 'include'}),
+   //  baseQuery: fetchBaseQuery({baseUrl: 'https://sync-lab-express-backend.vercel.app/' , credentials: 'include'}),
    //  baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:8080' , credentials: 'include'}),
-    tagTypes:["employees" , "requests" , "adminNotifications" , "employeeNotifications" , "overtime"],
+    tagTypes:["employees" , "requests" , "adminNotifications" , "employeeNotifications" , "overtime" , "holiday"],
     endpoints: (builder) => ({
        getEmployeeProfile: builder.query({
          query: ({id}) => ({
@@ -25,6 +25,13 @@ export const employeeApi = createApi({
             method: "GET"
          }),
          providesTags:["employees"]
+      }),
+      allHolidays: builder.query({
+         query: () => ({
+            url:"/employee/all-holiday",
+            method: "GET"
+         }),
+         providesTags:["holiday"]
       }),
       allAdminNotifications: builder.query({
          query: () => ({
@@ -47,6 +54,14 @@ export const employeeApi = createApi({
            body: {...data}
          }),
          invalidatesTags:["employees"]
+      }),
+      addHoliday: builder.mutation({
+         query: ({...data}) => ({
+           url: "/employee/add-holiday",
+           method: "POST",
+           body: {...data}
+         }),
+         invalidatesTags:["holiday"]
       }),
       addLeaveRequest: builder.mutation({
          query: ({...data}) => {
@@ -141,6 +156,13 @@ export const employeeApi = createApi({
          }),
          invalidatesTags:["employees"]
       }),
+      deleteHoliday : builder.mutation({
+         query: ({id}) => ({
+            url: `/employee/delete-holiday/${id}`,
+            method: "DELETE"
+         }),
+         invalidatesTags:["holiday"]
+      }),
       getAllEmployeesRequest: builder.query({
          query: () => ({
             url:"/employee/all-requests",
@@ -204,4 +226,4 @@ export const employeeApi = createApi({
     })
 })
 
-export const {useGetEmployeeProfileQuery , useAllEmployeesQuery , useAddEmployeeMutation , useEditEmployeeMutation , useDeleteEmployeeMutation , useGetAllEmployeesRequestQuery , useUpdateEmployeeRequestMutation , useGetEmployeeMutation , useAddLeaveRequestMutation , useUpdateEmployeeLeaveMutation , useGetEmployeeRequestsMutation , useAddAdminNotificationMutation , useUpdateAdminNotificationMutation , useAllAdminNotificationsQuery , useAddEmployeeNotificationMutation , useUpdateEmployeeNotificationMutation , useLazyAllEmployeeNotificationsQuery, useGetAllEmployeesOvertimeRequestQuery , useAddOvertimeRequestMutation , useUpdateEmployeeOvertimeRequestMutation , useGetEmployeeOvertimeRequestsMutation , useUpdateEmployeeOvertimeMutation , useAddLeaveChangelogMutation , useLazyGetEmployeeDetailsQuery } = employeeApi
+export const {useGetEmployeeProfileQuery , useAllEmployeesQuery , useAddEmployeeMutation , useEditEmployeeMutation , useDeleteEmployeeMutation , useGetAllEmployeesRequestQuery , useUpdateEmployeeRequestMutation , useGetEmployeeMutation , useAddLeaveRequestMutation , useUpdateEmployeeLeaveMutation , useGetEmployeeRequestsMutation , useAddAdminNotificationMutation , useUpdateAdminNotificationMutation , useAllAdminNotificationsQuery , useAddEmployeeNotificationMutation , useUpdateEmployeeNotificationMutation , useLazyAllEmployeeNotificationsQuery, useGetAllEmployeesOvertimeRequestQuery , useAddOvertimeRequestMutation , useUpdateEmployeeOvertimeRequestMutation , useGetEmployeeOvertimeRequestsMutation , useUpdateEmployeeOvertimeMutation , useAddLeaveChangelogMutation , useLazyGetEmployeeDetailsQuery , useAllHolidaysQuery , useAddHolidayMutation , useDeleteHolidayMutation } = employeeApi

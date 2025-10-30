@@ -73,10 +73,10 @@ export const Employee_Columns:ColumnDef<Employee>[] = [
       )
     }
   },
-  {
-    accessorKey: 'gender',
-    header: "Gender"
-  },
+  // {
+  //   accessorKey: 'gender',
+  //   header: "Gender"
+  // },
   {
     accessorKey: 'mobile_number',
     header: ({column}) => {

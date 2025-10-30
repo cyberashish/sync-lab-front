@@ -44,7 +44,7 @@ export default function TotalEmployess() {
 
   const {data , isLoading} = useAllEmployeesQuery(undefined);
   // const [state , dispatch] = useReducer(reducer , initialState);
-  const departments = ["Engineering" , "Design" , "Quality Assurance" , "Sales"];
+  const departments = ["Developers" , "Design" , "Quality Assurance" , "Sales"];
   const [employeesBasedOnDepartments , setEmployeesBasedOnDepartments] = useState<any[]>([]);
   const [employeesStrengthByDepartment , setEmployeesStrengthByDepartment] = useState<any[]>([]);
   const theme = useAppSelector((state) => state.userMode.theme);
@@ -53,7 +53,7 @@ export default function TotalEmployess() {
     {
       id: uuidv4(),
       color: "bg-primary",
-      designation: "Engineering",
+      designation: "Developers",
       total: 50,
     },
     {
@@ -112,7 +112,7 @@ export default function TotalEmployess() {
   const ChartData: ChartDataType = {
     series: employeesStrengthByDepartment,
     options: {
-      labels: ["Engineering" , "Design" , "QA" , "Sales"],
+      labels: ["Developers" , "Design" , "QA" , "Sales"],
       chart: {
         height: 190,
         type: "donut",
