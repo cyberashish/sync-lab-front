@@ -1,37 +1,45 @@
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useAppDispatch } from "@/hooks/hooks";
+import { useRegisterUserMutation } from "@/store/api/userApi";
+import { setAuth, setAuthenticatedUser } from "@/store/slices/userModeSlice";
+import { signupSchema } from "@/utils/schema";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { useFormik } from "formik";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 
 export default function AuthSignupForm(){
 
-    // const [register,{isLoading,error}] = useRegisterUserMutation();
-    // const dispatch = useAppDispatch();
-    // const navigate = useNavigate();
+    const [register,{isLoading,error}] = useRegisterUserMutation();
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
-    // const initialValues = {
-    //     fullname : "",
-    //     email: "",
-    //     password: "",
-    //     confirmPassword: ""
-    // }
+    const initialValues = {
+        fullname : "",
+        email: "",
+        password: "",
+        confirmPassword: ""
+    }
 
-    // const {values , errors , handleBlur , touched, handleChange , handleSubmit , resetForm} = useFormik({
-    //     initialValues,
-    //     validationSchema:signupSchema,
-    //     onSubmit: async (values) => {
-    //        const result = await register({fullname:values.fullname , email:values.email , password:values.password});
-    //        const user = result.data.data;
-    //        if(!result?.error){
-    //         dispatch(setAuth(true));
-    //         dispatch(setAuthenticatedUser({name: user.fullname , email:user.email , img:user.image}));
-    //         navigate("/");
-    //        }
-    //        resetForm();
+    const {values , errors , handleBlur , touched, handleChange , resetForm} = useFormik({
+        initialValues,
+        validationSchema:signupSchema,
+        onSubmit: async (values) => {
+           const result = await register({fullname:values.fullname , email:values.email , password:values.password});
+           const user = result.data.data;
+           if(!result?.error){
+            dispatch(setAuth(true));
+            dispatch(setAuthenticatedUser({name: user.fullname , email:user.email , img:user.image}));
+            navigate("/");
+           }
+           resetForm();
 
-    //     }
-    // });
+        }
+    });
 
     const [loading, setLoading] = useState(false);
 
@@ -39,7 +47,7 @@ export default function AuthSignupForm(){
     setLoading(true);
     // Redirect to your backend Google OAuth endpoint
     // window.open(`https://sync-lab-backend-cwqc.onrender.com/auth/google` , '_self')
-    window.open(`https://sync-lab-express-backend.vercel.app/auth/google` , '_self')
+    window.open(`https://sync-lab-express-backend.vercel.app/user/auth/google` , '_self')
     // window.open(`http://localhost:8080/auth/google` , '_self')
   };
 
@@ -50,7 +58,7 @@ export default function AuthSignupForm(){
             <p className="text-sm text-muted font-medium">Already have an account? <Link to="/auth/login" className="font-semibold text-primary hover:text-primary/90">Get started</Link></p>
         </div>
         <form className="mt-8 flex flex-col gap-4" >
-        {/* <div className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-1.5">
           <Label htmlFor="fullname" className="text-dark font-medium text-sm" >Fullname</Label>
           <div>
           <Input value={values.fullname} onBlur={handleBlur} onChange={handleChange} type="text" id="fullname" name="fullname" placeholder="Fullname" className={`${errors.fullname && touched.fullname ? 'border-red-500 focus:border-red-500' : null}`} />
@@ -86,7 +94,7 @@ export default function AuthSignupForm(){
             {isLoading ?  <Loader2 className="animate-spin" /> : null}
             Sign Up
             </Button>
-        </div> */}
+        </div>
          <div className="flex items-center gap-2 w-fit">
             <button
         onClick={handleGoogleSignIn}

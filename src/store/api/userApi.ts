@@ -8,15 +8,15 @@ export const userApi = createApi({
     tagTypes: ['User'],
     endpoints: (builder) => ({
        getUserByToken: builder.query({
-        query: () => '/token/get-user',
+        query: () => '/user/token/get-user',
         providesTags: ['User'],
        }),
        logoutUser: builder.query({
-        query: () => '/logout'
+        query: () => '/user/logout'
        }),
        registerUser: builder.mutation({
         query: ({fullname , email , password}) => ({
-            url: '/register',
+            url: '/user/register',
             method: 'POST',
             body: {fullname,email,password}
         }),
@@ -24,7 +24,7 @@ export const userApi = createApi({
        }),
        loginUser: builder.mutation({
          query: ({email,password}) => ({
-          url: "/login",
+          url: "/user/login",
           method: "POST",
           body: {email,password} 
          }),
@@ -48,7 +48,7 @@ export const userApi = createApi({
        }),
        getUserByEmail: builder.mutation({
         query: ({email}) => ({
-            url: '/get-user/email',
+            url: '/user/get-user/email',
             method: 'POST',
             body: {email}
         }),

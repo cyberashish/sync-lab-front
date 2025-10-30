@@ -3,43 +3,18 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { Link } from "react-router";
 import { Button } from "@/components/ui/button";
-import { useGetUserByTokenQuery } from "@/store/api/userApi";
+import { useGetUserByTokenQuery, useLazyLogoutUserQuery } from "@/store/api/userApi";
 import { useEffect, useState } from "react";
 
 export default function MyProfile() {
-  // const [trigger] = useLazyLogoutUserQuery();
+  const [trigger] = useLazyLogoutUserQuery();
   const [authenticatedUser , setAuthenticatedUser] = useState<any>();
   const {data} = useGetUserByTokenQuery(undefined);
 
-   function deleteAllCookies() {
-    (function () {
-      const cookies = document.cookie.split("; ");
-      for (let c = 0; c < cookies.length; c++) {
-        const d = window.location.hostname.split(".");
-        while (d.length > 0) {
-          const cookieBase =
-            encodeURIComponent(cookies[c].split("=")[0]) +
-            "=; expires=Thu, 01 Jan 1970 00:00:01 GMT; domain=" +
-            d.join(".") +
-            " ;path=";
-          const p = location.pathname.split("/");
-          document.cookie = cookieBase + "/";
-          while (p.length > 0) {
-            document.cookie = cookieBase + p.join("/");
-            p.pop();
-          }
-          d.shift();
-        }
-      }
-    })();
-  }
-  
-
   async function handleLogout(){
-    // await trigger(undefined); // Optional: can await for data
-    console.log("I cleared");
-    deleteAllCookies();
-    // window.location.href="https://synclabems.netlify.app/"
+    await trigger(undefined); // Optional: can await for data
+    window.location.href="https://synclabems.netlify.app/"
+    // window.location.href="https://sync-lab-express-backend.vercel.app/"
     // window.location.href="http://localhost:5173/"
   }
   useEffect(() => {
